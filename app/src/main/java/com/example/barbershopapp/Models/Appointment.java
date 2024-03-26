@@ -12,6 +12,17 @@ public class Appointment {
         this.serviceType = serviceType;
         this.client = client;
     }
+    public Appointment(String date, String time, String serviceType) {
+        this.date = date;
+        this.time = time;
+        this.serviceType = serviceType;
+    }
+    public Appointment() {
+        this.date = "date";
+        this.time = "time";
+        this.serviceType = "serviceType";
+        this.client = new Client();
+    }
 
     public String getDate() {
         return date;

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,7 +35,6 @@ public class SetAppointmentActivity extends AppCompatActivity {
     public TextView selectedHourTV;
     private ArrayList<String> availableHours;
     private Spinner servicesSpinner;
-
     private Button setAppointmentBtn;
 
     @Override
@@ -62,7 +62,7 @@ public class SetAppointmentActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
 
-                String selectedDate = String.valueOf(dayOfMonth) + "-" + String.valueOf(month + 1) + "-" + String.valueOf(year);
+                String selectedDate = String.valueOf(year) + "-" + String.valueOf(month + 1) + "-" + String.valueOf(dayOfMonth);
                 selectedDateTV.setText(selectedDate);
                 textView.setText("Avilable Hours on " + selectedDate);
 
@@ -92,7 +92,7 @@ public class SetAppointmentActivity extends AppCompatActivity {
 
                 Client client = new Client(username , email ,password , phone);
 
-                if(isValid(date,hour)) {
+                if(isFutureDate(date + " " + hour)) {
                     Appointment appointment = new Appointment(date , hour , service , client);
                     FirebaseManager.getInstance().setAppointment(appointment ,SetAppointmentActivity.this);
                 }
@@ -103,17 +103,15 @@ public class SetAppointmentActivity extends AppCompatActivity {
         });
     }
 
-    public boolean isValid(String date, String hour) {
+    public boolean isFutureDate(String date) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yy", Locale.getDefault());
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.getDefault());
             Date selectedDate = dateFormat.parse(date);
-            Date selectedHour = timeFormat.parse(hour);
 
             Date currentDate = new Date();
 
-            if (selectedDate.after(currentDate) || (selectedDate.equals(currentDate) && selectedHour.after(currentDate))) {
+            if (selectedDate.after(currentDate)) {
                 return true;
             } else {
                 Toast.makeText(SetAppointmentActivity.this ,"Select a future date and time", Toast.LENGTH_SHORT).show();

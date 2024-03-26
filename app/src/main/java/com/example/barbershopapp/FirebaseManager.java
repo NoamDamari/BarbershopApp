@@ -2,6 +2,7 @@ package com.example.barbershopapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -24,11 +25,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 public class FirebaseManager {
@@ -256,5 +262,59 @@ public class FirebaseManager {
                 setValue(appointment);
 
         Toast.makeText(context ,"Appointment Set SUCCESS", Toast.LENGTH_SHORT).show();
+    }
+
+    public void fetchClosestAppointment(onClosestAppointmentDetailsFetchedListener listener) {
+        String uid = mAuth.getUid();
+        DatabaseReference ref = mDatabase.child("Clients").child(uid).child("Appointments");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
+                    String date = dateSnapshot.getKey();
+
+                    if (isFutureTime((date + " 23:59"))) {
+                        for (DataSnapshot hourSnapshot : dateSnapshot.getChildren()) {
+                            String hour = hourSnapshot.getKey();
+                            if (isFutureTime(date + " " + hour)) {
+                                String service = hourSnapshot.child("serviceType").getValue(String.class);
+                                Appointment closestAppointment = new Appointment(date, hour, service, null);
+                                listener.onClosestAppointmentDetailsFetched(closestAppointment);
+                                return;
+                            }
+                        }
+                    }
+                }
+                listener.onClosestAppointmentDetailsFetched(null);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Closest Appointment error", "Closest Appointment error");
+                listener.onClosestAppointmentDetailsFetched(null);
+            }
+        });
+    }
+
+    public interface onClosestAppointmentDetailsFetchedListener {
+        void onClosestAppointmentDetailsFetched(Appointment appointment);
+    }
+
+    public boolean isFutureTime(String date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.getDefault());
+            Date selectedDate = dateFormat.parse(date);
+
+            Date currentDate = new Date();
+
+            if (selectedDate.after(currentDate)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
