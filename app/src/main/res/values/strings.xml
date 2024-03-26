@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BarbershopApp</string>
+
+    <string name="choose_service_prompt">Choose Service</string>
+
+    <string-array name="service_options">
+        <item>Men Haircut</item>
+        <item>Women Haircut</item>
+        <item>Children Haircut </item>
+    </string-array>
+</resources>
