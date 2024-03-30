@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,13 +22,17 @@ public class MainActivity extends AppCompatActivity {
     Client currentUser;
     Appointment closestAppointment;
     private TextView usernameTV;
-    private ImageButton returnBtn;
+    private ImageView signOutBtn;
     private LinearLayout nextAppointmentLayout;
     private TextView cardHeadlineTV;
     private TextView nextDateTV;
     private TextView nextTimeTV;
     private TextView nextServiceTV;
     private CardView toCalenderCV;
+    private CardView toAppointmentsListCV;
+    private CardView toContactCV;
+    private CardView toServicesCV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         usernameTV = findViewById(R.id.usernameTV);
-        returnBtn = findViewById(R.id.returnButton);
+        signOutBtn = findViewById(R.id.signOutBtn);
         toCalenderCV = findViewById(R.id.toCalenderCV);
+        toAppointmentsListCV = findViewById(R.id.toAppointmentsListCV);
+        toContactCV = findViewById(R.id.toContactCV);
+        toServicesCV = findViewById(R.id.toServicesCV);
         nextAppointmentLayout = findViewById(R.id.nextAppointmentLayout);
         nextDateTV = findViewById(R.id.nextDateTV);
         nextTimeTV = findViewById(R.id.nextTimeTV);
@@ -74,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        returnBtn.setOnClickListener(new View.OnClickListener() {
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -92,5 +100,43 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        toAppointmentsListCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AppointmentsListActivity.class);
+                intent.putExtra("username" , currentUser.getUsername());
+                intent.putExtra("email" , currentUser.getEmail());
+                intent.putExtra("password" , currentUser.getPassword());
+                intent.putExtra("phone" , currentUser.getPhone());
+                startActivity(intent);
+            }
+        });
+
+        toContactCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ContactActivity.class);
+                intent.putExtra("username" , currentUser.getUsername());
+                intent.putExtra("email" , currentUser.getEmail());
+                intent.putExtra("password" , currentUser.getPassword());
+                intent.putExtra("phone" , currentUser.getPhone());
+                startActivity(intent);
+            }
+        });
+
+        toServicesCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ServicesActivity.class);
+                intent.putExtra("username" , currentUser.getUsername());
+                intent.putExtra("email" , currentUser.getEmail());
+                intent.putExtra("password" , currentUser.getPassword());
+                intent.putExtra("phone" , currentUser.getPhone());
+                startActivity(intent);
+            }
+        });
+
+
     }
 }

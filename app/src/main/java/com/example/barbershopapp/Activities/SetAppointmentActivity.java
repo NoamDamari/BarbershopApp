@@ -50,6 +50,8 @@ public class SetAppointmentActivity extends AppCompatActivity {
         servicesSpinner = findViewById(R.id.servicesSpinner);
         setAppointmentBtn = findViewById(R.id.setAppointmentBtn);
 
+        //Calendar currentDate = Calendar.getInstance();
+        //calender.setDate(currentDate.getTimeInMillis(), true, true);
         availableHours = new ArrayList<String>();
         String[] services = getResources().getStringArray(R.array.service_options);
 
@@ -122,6 +124,4 @@ public class SetAppointmentActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 }

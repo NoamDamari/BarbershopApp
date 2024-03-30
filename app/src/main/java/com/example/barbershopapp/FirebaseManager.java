@@ -17,7 +17,10 @@ import com.example.barbershopapp.Activities.SetAppointmentActivity;
 import com.example.barbershopapp.Adapters.HoursAdapter;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
+import com.example.barbershopapp.Models.Service;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -316,5 +319,101 @@ public class FirebaseManager {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void fetchClientAppointments(Context context , ArrayList<Appointment> appointments , onClientAppointmentsFetchedListener listener){
+
+        String uid = mAuth.getUid();
+        DatabaseReference clientAppointmentsRef = mDatabase.child("Clients")
+                .child(uid)
+                .child("Appointments");
+
+        clientAppointmentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dateSnapshot : snapshot.getChildren()){
+                    String date = dateSnapshot.getKey();
+
+                    if (isFutureTime((date + " 23:59"))) {
+                        for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
+                            String time = timeSnapshot.getKey();
+                            if (isFutureTime(date + " " + time)) {
+                                appointments.add(timeSnapshot.getValue(Appointment.class));
+                            }
+                        }
+                    }
+                }
+                listener.onClientAppointmentsFetched(appointments);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public interface onClientAppointmentsFetchedListener {
+        void onClientAppointmentsFetched(ArrayList<Appointment> appointments);
+    }
+
+    public void cancelAppointmentByClient(String date , String time) {
+        String uid = mAuth.getUid();
+        DatabaseReference appointmentsRef = mDatabase.child("Appointments");
+        DatabaseReference clientAppointmentsRef = mDatabase.child("Clients").child(uid).child("Appointments");
+
+        appointmentsRef.child(date).child(time).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("FirebaseManager", "Appointment deleted successfully from client appointments.");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("FirebaseManager", "Failed to delete appointment from client appointments.", e);
+                    }
+                });
+
+        clientAppointmentsRef.child(date).child(time).removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("FirebaseManager", "Appointment deleted successfully from client appointments.");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("FirebaseManager", "Failed to delete appointment from client appointments.", e);
+                    }
+                });
+    }
+
+    public void fetchServicesList(Context context , ArrayList<Service> servicesList , onServicesFetchedListener listener) {
+
+        DatabaseReference servicesRef = mDatabase.child("Services");
+        servicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot serviceSnapshot : snapshot.getChildren()) {
+                    String serviceName = serviceSnapshot.getKey();
+                    String servicePrice = serviceSnapshot.getValue(String.class);
+                    Service service = new Service(serviceName , servicePrice);
+                    servicesList.add(service);
+                }
+                listener.onServicesFetched(servicesList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public interface onServicesFetchedListener {
+        void onServicesFetched(ArrayList<Service> services);
     }
 }
