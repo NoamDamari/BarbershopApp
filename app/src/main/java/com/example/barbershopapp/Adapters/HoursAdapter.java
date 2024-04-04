@@ -8,13 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentContainer;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.barbershopapp.FirebaseManager;
-import com.example.barbershopapp.Fragments.CalenderFragment;
+import com.example.barbershopapp.Fragments.CalendarFragment;
 import com.example.barbershopapp.R;
 
 import java.util.ArrayList;
@@ -58,9 +55,9 @@ public class HoursAdapter extends RecyclerView.Adapter<HoursAdapter.ViewHolder> 
                 // Get the current fragment within the NavHostFragment
                 Fragment currentFragment = navHostFragment.getChildFragmentManager().getPrimaryNavigationFragment();
 
-                if (currentFragment instanceof CalenderFragment) {
-                    CalenderFragment calenderFragment = (CalenderFragment) currentFragment;
-                    ((CalenderFragment) currentFragment).updateSelectedHour(selectedHour);
+                if (currentFragment instanceof CalendarFragment) {
+                    CalendarFragment calendarFragment = (CalendarFragment) currentFragment;
+                    ((CalendarFragment) currentFragment).updateSelectedHour(selectedHour);
                 }
             }
         });

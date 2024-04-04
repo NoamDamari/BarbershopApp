@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.barbershopapp.R;
 
-public class TestActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_auth);
     }
 }

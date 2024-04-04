@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#121212"
-    tools:context=".Activities.ManagerLoginActivity">
+    tools:context=".Fragments.RegisterFragment">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="243dp"
-        android:layout_height="197dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        android:id="@+id/imageView2"
+        android:layout_width="184dp"
+        android:layout_height="156dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/icon_user_grey2" />
+        app:srcCompat="@drawable/icon_user_grey" />
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -33,27 +32,38 @@
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.269">
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="283dp"
+            android:layout_height="65dp"
+            android:text="Enter your details below to create an account"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/managerNameInput"
+            android:id="@+id/regUsernameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:drawableLeft="@drawable/icon_user_black"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Name"
+            android:hint="Username"
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="8dp" />
 
         <EditText
-            android:id="@+id/managerEmailInput"
+            android:id="@+id/regEmailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:drawableLeft="@drawable/icon_email"
             android:drawablePadding="4dp"
             android:ems="10"
@@ -63,9 +73,10 @@
             android:padding="8dp" />
 
         <EditText
-            android:id="@+id/managerPasswordInput"
+            android:id="@+id/regPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:drawableLeft="@drawable/icon_lock_black"
             android:drawablePadding="4dp"
             android:ems="10"
@@ -75,31 +86,32 @@
             android:padding="8dp" />
 
         <EditText
-            android:id="@+id/managerIdInput"
+            android:id="@+id/regPhoneInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_security_black"
+            android:layout_margin="4dp"
+            android:drawableLeft="@drawable/icon_phone"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Manager ID"
+            android:hint="Phone Number"
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="8dp" />
 
         <Button
-            android:id="@+id/managerLoginBtn"
+            android:id="@+id/registerBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
             android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
-            android:text="Login"
+            android:text="Register"
             android:textColor="@color/white"
             android:textSize="18dp" />
 
         <Button
-            android:id="@+id/managerBackToLoginBtn"
+            android:id="@+id/backToLoginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -109,6 +121,6 @@
             android:text="Back to Login"
             android:textColor="@color/white"
             android:textSize="18dp" />
-
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

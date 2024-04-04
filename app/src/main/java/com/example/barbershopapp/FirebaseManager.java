@@ -3,18 +3,12 @@ package com.example.barbershopapp;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.barbershopapp.Activities.LoginActivity;
+import com.example.barbershopapp.Activities.AuthActivity;
 import com.example.barbershopapp.Activities.MainActivity;
-import com.example.barbershopapp.Activities.RegisterActivity;
-import com.example.barbershopapp.Activities.SetAppointmentActivity;
-import com.example.barbershopapp.Adapters.HoursAdapter;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
 import com.example.barbershopapp.Models.Service;
@@ -28,20 +22,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Executor;
 
 public class FirebaseManager {
-
     private static FirebaseManager instance;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -58,25 +47,26 @@ public class FirebaseManager {
         return instance;
     }
 
+    // Register the client and call to saveClientDetailsOnDatabase function
     public void register(Client client , Context context) {
 
-        String name = client.getUsername();
+        //String name = client.getUsername();
         String email = client.getEmail();
         String password = client.getPassword();
-        String phone = client.getPhone();
+        //String phone = client.getPhone();
 
-        if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()){
-            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else {
+        //if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()){
+            //Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            //return;
+        //}
+        //else {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(context, "Registration Succeeded", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Successful Registration", Toast.LENGTH_SHORT).show();
                                 FirebaseManager.getInstance().saveClientDetailsOnDatabase(client , mAuth.getUid());
                                 Intent intent = new Intent(context, MainActivity.class);
                                 context.startActivity(intent);
@@ -86,29 +76,31 @@ public class FirebaseManager {
                             }
                         }
                     });
-        }
+        //}
     }
 
+    // Store client details on database
     public void saveClientDetailsOnDatabase(Client client , String uid){
         assert uid != null : "User ID cannot be null";
         DatabaseReference clientsRef = mDatabase.child("Clients").child(uid);
         clientsRef.setValue(client);
     }
 
+    // Client login function
     public void login(String email , String password , Context context) {
 
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        else {
+        //if (email.isEmpty() || password.isEmpty()) {
+            //Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            //return;
+        //}
+        //else {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Successful login", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(context, MainActivity.class);
                                 context.startActivity(intent);
                             } else {
@@ -117,20 +109,22 @@ public class FirebaseManager {
                             }
                         }
                     });
-        }
+        //}
     }
 
+    // Manager login function and call to checkManagerCredentials
     public void managerLogin(@NonNull String email , String password , String managerId , Context context) {
 
-        if (email.isEmpty() || password.isEmpty() || managerId.isEmpty()) {
-            Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
+        //if (email.isEmpty() || password.isEmpty() || managerId.isEmpty()) {
+            //Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+           // return;
+        //} else {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                // Validate manager id
                                 FirebaseManager.getInstance().checkManagerCredentials(email, password, managerId, new ManagerCredentialsListener() {
                                     @Override
                                     public void onManagerCredentialsMatch() {
@@ -151,7 +145,7 @@ public class FirebaseManager {
                             }
                         }
                     });
-        }
+        //}
     }
 
     public interface ManagerCredentialsListener {
@@ -159,6 +153,7 @@ public class FirebaseManager {
         void onManagerCredentialsMismatch(String errorMessage);
     }
 
+    // Validate that the manager ID exists and matches the provided user email and password.
     public void checkManagerCredentials(String email, String password, String managerId, ManagerCredentialsListener listener) {
         mDatabase.child("Managers").child(managerId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -415,5 +410,11 @@ public class FirebaseManager {
 
     public interface onServicesFetchedListener {
         void onServicesFetched(ArrayList<Service> services);
+    }
+
+    public void signOut(Context context) {
+        FirebaseManager.getInstance().mAuth.signOut();
+        Intent intent = new Intent(context, AuthActivity.class);
+        context.startActivity(intent);
     }
 }

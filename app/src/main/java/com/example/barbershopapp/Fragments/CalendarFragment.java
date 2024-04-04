@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.barbershopapp.Activities.SetAppointmentActivity;
 import com.example.barbershopapp.Adapters.HoursAdapter;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.R;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CalenderFragment extends Fragment {
+public class CalendarFragment extends Fragment {
 
     CalendarView calender;
     RecyclerView availableHoursRV;
@@ -36,7 +34,7 @@ public class CalenderFragment extends Fragment {
     TextView selectedHourTV;
     Button nextBtn;
 
-    public CalenderFragment() {
+    public CalendarFragment() {
         // Required empty public constructor
     }
 

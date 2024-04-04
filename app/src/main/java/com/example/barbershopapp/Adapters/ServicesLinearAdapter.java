@@ -1,10 +1,8 @@
 package com.example.barbershopapp.Adapters;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +11,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.barbershopapp.Fragments.CalenderFragment;
 import com.example.barbershopapp.Fragments.ServicesFragment;
 import com.example.barbershopapp.Models.Service;
 import com.example.barbershopapp.R;

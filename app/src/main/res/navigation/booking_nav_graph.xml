@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/calenderFragment">
+    app:startDestination="@id/calendarFragment">
 
     <fragment
-        android:id="@+id/calenderFragment"
-        android:name="com.example.barbershopapp.Fragments.CalenderFragment"
+        android:id="@+id/calendarFragment"
+        android:name="com.example.barbershopapp.Fragments.CalendarFragment"
         android:label="fragment_calender"
         tools:layout="@layout/fragment_calender" >
         <action
@@ -24,7 +24,7 @@
             app:destination="@id/bookingFragment" />
         <action
             android:id="@+id/action_servicesFragment_to_calenderFragment"
-            app:destination="@id/calenderFragment" />
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookingFragment"
