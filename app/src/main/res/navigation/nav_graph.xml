@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/calenderFragment">
+
+    <fragment
+        android:id="@+id/calenderFragment"
+        android:name="com.example.barbershopapp.Fragments.CalenderFragment"
+        android:label="fragment_calender"
+        tools:layout="@layout/fragment_calender" >
+        <action
+            android:id="@+id/action_calenderFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/servicesFragment"
+        android:name="com.example.barbershopapp.Fragments.ServicesFragment"
+        android:label="fragment_services"
+        tools:layout="@layout/fragment_services" >
+        <action
+            android:id="@+id/action_servicesFragment_to_bookingFragment"
+            app:destination="@id/bookingFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_calenderFragment"
+            app:destination="@id/calenderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.example.barbershopapp.Fragments.BookingFragment"
+        android:label="fragment_booking"
+        tools:layout="@layout/fragment_booking" >
+        <action
+            android:id="@+id/action_bookingFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment" />
+    </fragment>
+</navigation>

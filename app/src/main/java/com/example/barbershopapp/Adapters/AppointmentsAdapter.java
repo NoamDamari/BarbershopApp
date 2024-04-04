@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.R;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ public class AppointmentsAdapter extends RecyclerView.Adapter<AppointmentsAdapte
     @NonNull
     @Override
     public AppointmentsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_details_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_layout, parent, false);
         return new AppointmentsAdapter.ViewHolder(view);
     }
 

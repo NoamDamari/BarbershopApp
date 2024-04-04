@@ -4,21 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg1"
+    android:background="#121212"
     tools:context=".Activities.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="228dp"
-        android:layout_height="201dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="9dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="12dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/logo1" />
+        app:srcCompat="@drawable/logo2" />
 
     <TextView
         android:id="@+id/textView2"
@@ -45,7 +49,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:gravity="center"
         android:minWidth="340dp"
         android:orientation="vertical"
@@ -80,15 +84,16 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:background="@drawable/input_text_layout"
-                android:drawableLeft="@drawable/email_icon_grey"
+                android:drawableLeft="@drawable/icon_email"
                 android:drawablePadding="6dp"
+                android:drawableTint="#D1D1D1"
                 android:ems="10"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
                 android:minHeight="48dp"
                 android:padding="12dp"
-                android:textColorHint="#D1D1D1"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="#D1D1D1" />
 
             <EditText
                 android:id="@+id/loginPasswordInput"
@@ -96,15 +101,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:background="@drawable/input_text_layout"
-                android:drawableLeft="@drawable/lock_icon_grey"
+                android:drawableLeft="@drawable/icon_lock_grey"
                 android:drawablePadding="6dp"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
                 android:padding="12dp"
-                android:textColorHint="#D1D1D1"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textColorHint="#D1D1D1" />
         </LinearLayout>
 
         <Button
@@ -112,27 +117,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@drawable/silver_btn"
+            android:background="@drawable/button_silver"
             android:text="Login"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/regBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@drawable/silver_btn"
+            android:background="@drawable/button_silver"
             android:text="Register"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/loginAsManagerBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@drawable/silver_btn"
+            android:background="@drawable/button_silver"
             android:text="Login as manager"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

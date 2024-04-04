@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg1"
+    android:background="#121212"
     tools:context=".Activities.ManagerLoginActivity">
 
     <ImageView
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/user_icon_grey2" />
+        app:srcCompat="@drawable/icon_user_grey2" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/grey_bg"
+        android:background="@drawable/background_grey"
         android:gravity="center"
         android:minWidth="340dp"
         android:orientation="vertical"
@@ -42,7 +42,7 @@
             android:id="@+id/managerNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/user_icon_black"
+            android:drawableLeft="@drawable/icon_user_black"
             android:drawablePadding="4dp"
             android:ems="10"
             android:hint="Name"
@@ -54,7 +54,7 @@
             android:id="@+id/managerEmailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/email_icon_black"
+            android:drawableLeft="@drawable/icon_email"
             android:drawablePadding="4dp"
             android:ems="10"
             android:hint="Email"
@@ -66,7 +66,7 @@
             android:id="@+id/managerPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/lock_icon_black"
+            android:drawableLeft="@drawable/icon_lock_black"
             android:drawablePadding="4dp"
             android:ems="10"
             android:hint="Password"
@@ -78,7 +78,7 @@
             android:id="@+id/managerIdInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/security_icon_black"
+            android:drawableLeft="@drawable/icon_security_black"
             android:drawablePadding="4dp"
             android:ems="10"
             android:hint="Manager ID"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
-            android:background="@drawable/simple_btn_layout"
+            android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
             android:text="Login"
             android:textColor="@color/white"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
-            android:background="@drawable/simple_btn_layout"
+            android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
             android:text="Back to Login"
             android:textColor="@color/white"

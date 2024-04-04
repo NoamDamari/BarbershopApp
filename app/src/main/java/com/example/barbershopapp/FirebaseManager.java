@@ -303,10 +303,10 @@ public class FirebaseManager {
         void onClosestAppointmentDetailsFetched(Appointment appointment);
     }
 
-    public boolean isFutureTime(String date) {
+    public boolean isFutureTime(String dateAndTime) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm", Locale.getDefault());
-            Date selectedDate = dateFormat.parse(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
+            Date selectedDate = dateFormat.parse(dateAndTime);
 
             Date currentDate = new Date();
 

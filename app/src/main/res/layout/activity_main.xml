@@ -9,9 +9,9 @@
     <LinearLayout
         android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/dark_bg"
+        android:background="@drawable/background_dark"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hello"
                 android:textColor="@color/white"
-                android:textSize="32sp"
+                android:textSize="36sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="User Name"
                 android:textColor="@color/white"
-                android:textSize="36sp"
+                android:textSize="44sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -52,22 +52,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:src="@drawable/logout_icon_grey" />
+            android:src="@drawable/icon_logout_grey" />
 
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout9"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
 
-        android:background="@drawable/grey_bg"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_grey"
         android:orientation="horizontal"
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
         app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-        app:layout_constraintTop_toTopOf="@+id/guideline">
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
 
         <ImageView
             android:id="@+id/imageView5"
@@ -76,7 +77,7 @@
             android:layout_margin="8dp"
             android:layout_weight="0.7"
             android:scaleType="fitCenter"
-            android:src="@drawable/logo2" />
+            android:src="@drawable/logo1" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,6 +111,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
                 android:orientation="vertical"
+                android:layout_marginTop="2dp"
                 android:visibility="gone">
 
                 <LinearLayout
@@ -127,25 +129,8 @@
                         android:text="Date"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/nextServiceTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Service type"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/nextTimeTV"
@@ -156,16 +141,28 @@
                         android:text="Time"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                    <Button
-                        android:id="@+id/button"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/nextServiceTV"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:minHeight="48dp"
-                        android:text="Button" />
+                        android:text="Service type"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -177,7 +174,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="18dp"
-        android:background="@drawable/dark_bg2"
+        android:background="@drawable/background_dark2"
         android:minHeight="300dp"
         android:orientation="vertical"
         android:padding="8dp"
@@ -203,7 +200,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    >
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -215,7 +213,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/calendar_icon_grey" />
+                        app:srcCompat="@drawable/icon_calendar" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -255,7 +253,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/scissors_icon_grey" />
+                        app:srcCompat="@drawable/icon_scissors" />
 
                     <TextView
                         android:id="@+id/textView17"
@@ -300,7 +298,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/list_icon_grey" />
+                        app:srcCompat="@drawable/icon_list" />
 
                     <TextView
                         android:id="@+id/textView15"
@@ -339,7 +337,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/phone_icon_grey" />
+                        app:srcCompat="@drawable/icon_phone" />
 
                     <TextView
                         android:id="@+id/textView18"
@@ -365,7 +363,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.18194254" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
@@ -373,5 +371,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.500684" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        android:textColor="#C5A856"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

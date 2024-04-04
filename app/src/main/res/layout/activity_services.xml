@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/dark_bg"
+        android:background="@drawable/background_dark"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:padding="10dp"
             android:text="Our Services"
             android:textColor="#ECECEC"
             android:textSize="40sp"
@@ -36,16 +37,16 @@
         android:layout_marginEnd="411dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.1504788"
+        app:layout_constraintGuide_percent="0.12"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/servicesRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,8 +59,10 @@
         android:id="@+id/returnBtn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/arrow_left_black"
+        android:background="@drawable/button_black"
         android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,5 +73,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.8016416" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,6 @@ public class ServicesActivity extends AppCompatActivity {
 
     private ArrayList<Service> serviceArrayList;
     RecyclerView servicesRV;
-    LinearLayoutManager layoutManager;
     ServicesAdapter adapter;
 
     @Override
@@ -29,8 +28,6 @@ public class ServicesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_services);
 
         servicesRV = findViewById(R.id.servicesRV);
-        //layoutManager = new LinearLayoutManager(this);
-        //servicesRV.setLayoutManager(layoutManager);
         servicesRV.setItemAnimator(new DefaultItemAnimator());
 
         serviceArrayList = new ArrayList<Service>();
