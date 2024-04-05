@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 
 import com.example.barbershopapp.Activities.AuthActivity;
 import com.example.barbershopapp.Activities.MainActivity;
+import com.example.barbershopapp.Activities.ManagerMainActivity;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
+import com.example.barbershopapp.Models.Manager;
 import com.example.barbershopapp.Models.Service;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -115,37 +117,35 @@ public class FirebaseManager {
     // Manager login function and call to checkManagerCredentials
     public void managerLogin(@NonNull String email , String password , String managerId , Context context) {
 
-        //if (email.isEmpty() || password.isEmpty() || managerId.isEmpty()) {
-            //Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-           // return;
-        //} else {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Validate manager id
-                                FirebaseManager.getInstance().checkManagerCredentials(email, password, managerId, new ManagerCredentialsListener() {
-                                    @Override
-                                    public void onManagerCredentialsMatch() {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(context, MainActivity.class);
-                                        context.startActivity(intent);
-                                    }
-                                    @Override
-                                    public void onManagerCredentialsMismatch(String errorMessage) {
-                                        // If manager credentials don't match, show error message
-                                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
-                            }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Validate manager id
+                            FirebaseManager.getInstance().checkManagerCredentials(email, password, managerId, new ManagerCredentialsListener() {
+                                @Override
+                                public void onManagerCredentialsMatch() {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(context, ManagerMainActivity.class);
+                                    intent.putExtra("manager id" , managerId);
+                                    context.startActivity(intent);
+                                }
+                                @Override
+                                public void onManagerCredentialsMismatch(String errorMessage) {
+                                    // If manager credentials don't match, show error message
+                                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                    });
-        //}
+                        else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
 
     public interface ManagerCredentialsListener {
@@ -262,7 +262,7 @@ public class FirebaseManager {
         Toast.makeText(context ,"Appointment Set SUCCESS", Toast.LENGTH_SHORT).show();
     }
 
-    public void fetchClosestAppointment(onClosestAppointmentDetailsFetchedListener listener) {
+    public void fetchClosestAppointmentForClient(onClosestAppointmentDetailsFetchedListener listener) {
         String uid = mAuth.getUid();
         DatabaseReference ref = mDatabase.child("Clients").child(uid).child("Appointments");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -417,4 +417,75 @@ public class FirebaseManager {
         Intent intent = new Intent(context, AuthActivity.class);
         context.startActivity(intent);
     }
+
+
+    // /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Fetch manager details from database
+    public void fetchManagerDetails(String managerId , onManagerDetailsFetchedListener listener) {
+
+        mDatabase.child("Managers").child(managerId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()) {
+                            String name = snapshot.child("username").getValue(String.class);
+                            String email = snapshot.child("email").getValue(String.class);
+                            String password = snapshot.child("password").getValue(String.class);
+                            String phone = snapshot.child("phone").getValue(String.class);
+                            Manager manager = new Manager(name , email , password , managerId);
+                            listener.onManagerDetailsFetched(manager);
+                        }
+                        else {
+                            listener.onManagerDetailsFetched(null);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        listener.onManagerDetailsFetched(null);
+                    }
+                });
+    }
+
+    public interface onManagerDetailsFetchedListener {
+        void onManagerDetailsFetched(Manager manager);
+    }
+
+    // Fetch the next appointment in the barbershop
+    public void fetchNextAppointment(onNextAppointmentFetchedListener listener) {
+
+        mDatabase.child("Appointments").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
+                    String date = dateSnapshot.getKey();
+
+                    if (isFutureTime((date + " 23:59"))) {
+                        for (DataSnapshot hourSnapshot : dateSnapshot.getChildren()) {
+                            String hour = hourSnapshot.getKey();
+                            if (isFutureTime(date + " " + hour)) {
+                                String service = hourSnapshot.child("serviceType").getValue(String.class);
+                                Client client = hourSnapshot.child("client").getValue(Client.class);
+                                Appointment nextAppointment = new Appointment(date, hour, service, client);
+                                listener.onNextAppointmentsFetched(nextAppointment);
+                                return;
+                            }
+                        }
+                    }
+                }
+                listener.onNextAppointmentsFetched(null);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Closest Appointment error", "Closest Appointment error");
+                listener.onNextAppointmentsFetched(null);
+            }
+        });
+    }
+
+    public interface onNextAppointmentFetchedListener {
+        void onNextAppointmentsFetched(Appointment appointment);
+    }
+
+
 }

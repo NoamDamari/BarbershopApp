@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FirebaseManager.getInstance().fetchClosestAppointment(new FirebaseManager.onClosestAppointmentDetailsFetchedListener() {
+        FirebaseManager.getInstance().fetchClosestAppointmentForClient(new FirebaseManager.onClosestAppointmentDetailsFetchedListener() {
             @Override
             public void onClosestAppointmentDetailsFetched(Appointment appointment) {
                 closestAppointment = appointment;
@@ -80,12 +80,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        signOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseManager.getInstance().signOut(MainActivity.this);
-            }
-        });
         toCalenderCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        signOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseManager.getInstance().signOut(MainActivity.this);
+            }
+        });
     }
 }
