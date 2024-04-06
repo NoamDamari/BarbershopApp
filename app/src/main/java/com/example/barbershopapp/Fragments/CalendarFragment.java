@@ -60,7 +60,7 @@ public class CalendarFragment extends Fragment {
         textView.setText("Available hours for today " + currentDate);
 
         // Display available times for current date
-        FirebaseManager.getInstance().getAvailableHours(currentDate, availableHours, getContext(), new FirebaseManager.onAvailableHoursFetchedListener() {
+        FirebaseManager.getInstance().fetchAvailableHours(currentDate, availableHours, getContext(), new FirebaseManager.onAvailableHoursFetchedListener() {
             @Override
             public void onAvailableHoursFetched(ArrayList<String> availableHours) {
                 HoursAdapter adapter = new HoursAdapter(availableHours);
@@ -81,7 +81,7 @@ public class CalendarFragment extends Fragment {
                 textView.setText("Avilable Hours on " + selectedDate);
 
                 availableHours.clear();
-                FirebaseManager.getInstance().getAvailableHours(selectedDate, availableHours, getContext(), new FirebaseManager.onAvailableHoursFetchedListener() {
+                FirebaseManager.getInstance().fetchAvailableHours(selectedDate, availableHours, getContext(), new FirebaseManager.onAvailableHoursFetchedListener() {
                     @Override
                     public void onAvailableHoursFetched(ArrayList<String> availableHours) {
                         HoursAdapter adapter = new HoursAdapter(availableHours);

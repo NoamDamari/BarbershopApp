@@ -64,7 +64,8 @@ public class BookingFragment extends Fragment {
                     String email = getActivity().getIntent().getStringExtra("email");
                     String phone = getActivity().getIntent().getStringExtra("phone");
                     String password = getActivity().getIntent().getStringExtra("password");
-                    Client client = new Client(username , email ,password , phone);
+                    String uid = getActivity().getIntent().getStringExtra("uid");
+                    Client client = new Client(username , email ,password , phone , uid);
 
                     boolean isFuture = FirebaseManager.getInstance().isFutureTime(date + " " + hour);
                     if(isFuture) {

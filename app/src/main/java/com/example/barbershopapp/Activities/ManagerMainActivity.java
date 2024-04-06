@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.barbershopapp.FirebaseManager;
+import com.example.barbershopapp.Fragments.ClientsFragment;
+import com.example.barbershopapp.Fragments.ScheduleFragment;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Manager;
 import com.example.barbershopapp.R;
@@ -105,22 +107,14 @@ public class ManagerMainActivity extends AppCompatActivity {
         toAppointmentsListCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagerMainActivity.this, AppointmentsListActivity.class);
-                intent.putExtra("username" , currentManager.getUsername());
-                intent.putExtra("email" , currentManager.getEmail());
-                intent.putExtra("password" , currentManager.getPassword());
-                startActivity(intent);
+                openNextActivity(ScheduleFragment.class);
             }
         });
 
         toClientsCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagerMainActivity.this, ContactActivity.class);
-                intent.putExtra("username" , currentManager.getUsername());
-                intent.putExtra("email" , currentManager.getEmail());
-                intent.putExtra("password" , currentManager.getPassword());
-                startActivity(intent);
+                openNextActivity(ClientsFragment.class);
             }
         });
 
@@ -141,5 +135,14 @@ public class ManagerMainActivity extends AppCompatActivity {
                 FirebaseManager.getInstance().signOut(ManagerMainActivity.this);
             }
         });
+    }
+
+    private void openNextActivity(Class fragmentClass) {
+        Intent intent = new Intent(this, ManagementActivity.class);
+        intent.putExtra("username" , currentManager.getUsername());
+        intent.putExtra("email" , currentManager.getEmail());
+        intent.putExtra("password" , currentManager.getPassword());
+        intent.putExtra("Fragment to display", fragmentClass.getName());
+        startActivity(intent);
     }
 }

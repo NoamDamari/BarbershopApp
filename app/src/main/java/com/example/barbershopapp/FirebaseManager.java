@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.barbershopapp.Activities.AuthActivity;
 import com.example.barbershopapp.Activities.MainActivity;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
@@ -31,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class FirebaseManager {
     private static FirebaseManager instance;
@@ -52,66 +56,55 @@ public class FirebaseManager {
     // Register the client and call to saveClientDetailsOnDatabase function
     public void register(Client client , Context context) {
 
-        //String name = client.getUsername();
         String email = client.getEmail();
         String password = client.getPassword();
-        //String phone = client.getPhone();
 
-        //if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()){
-            //Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            //return;
-        //}
-        //else {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(context, "Successful Registration", Toast.LENGTH_SHORT).show();
-                                FirebaseManager.getInstance().saveClientDetailsOnDatabase(client , mAuth.getUid());
-                                Intent intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT).show();
-                            }
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(context, "Successful Registration", Toast.LENGTH_SHORT).show();
+                            Client clientWithUid = new Client(client.getUsername(), client.getEmail(), client.getPassword(), client.getPhone() , mAuth.getUid());
+                            FirebaseManager.getInstance().saveClientDetailsOnDatabase(clientWithUid);
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT).show();
                         }
-                    });
-        //}
+                    }
+                });
+
     }
 
     // Store client details on database
-    public void saveClientDetailsOnDatabase(Client client , String uid){
-        assert uid != null : "User ID cannot be null";
-        DatabaseReference clientsRef = mDatabase.child("Clients").child(uid);
+    public void saveClientDetailsOnDatabase(Client client){
+        assert client.getUid() != null : "User ID cannot be null";
+        DatabaseReference clientsRef = mDatabase.child("Clients").child(client.getUid());
         clientsRef.setValue(client);
     }
 
     // Client login function
     public void login(String email , String password , Context context) {
 
-        //if (email.isEmpty() || password.isEmpty()) {
-            //Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_SHORT).show();
-            //return;
-        //}
-        //else {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Toast.makeText(context, "Successful login", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
-                            }
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(context, "Successful login", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, MainActivity.class);
+                            context.startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
                         }
-                    });
-        //}
+                    }
+                });
+
     }
 
     // Manager login function and call to checkManagerCredentials
@@ -123,7 +116,7 @@ public class FirebaseManager {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Validate manager id
-                            FirebaseManager.getInstance().checkManagerCredentials(email, password, managerId, new ManagerCredentialsListener() {
+                            FirebaseManager.getInstance().validateManagerCredentials(email, password, managerId, new ManagerCredentialsListener() {
                                 @Override
                                 public void onManagerCredentialsMatch() {
                                     // Sign in success, update UI with the signed-in user's information
@@ -154,7 +147,7 @@ public class FirebaseManager {
     }
 
     // Validate that the manager ID exists and matches the provided user email and password.
-    public void checkManagerCredentials(String email, String password, String managerId, ManagerCredentialsListener listener) {
+    public void validateManagerCredentials(String email, String password, String managerId, ManagerCredentialsListener listener) {
         mDatabase.child("Managers").child(managerId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -177,7 +170,6 @@ public class FirebaseManager {
                     listener.onManagerCredentialsMismatch("Invalid manager ID");
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle database error
@@ -186,7 +178,8 @@ public class FirebaseManager {
         });
     }
 
-    public void getCurrentUserDetails(onUserDetailsFetchedListener listener) {
+    // Fetching data of the currently logged-in user(client)
+    public void fetchCurrentUserDetails(onUserDetailsFetchedListener listener) {
 
         String uid = mAuth.getUid();
         mDatabase.child("Clients").child(uid)
@@ -194,11 +187,7 @@ public class FirebaseManager {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
-                    String name = snapshot.child("username").getValue(String.class);
-                    String email = snapshot.child("email").getValue(String.class);
-                    String password = snapshot.child("password").getValue(String.class);
-                    String phone = snapshot.child("phone").getValue(String.class);
-                    Client client = new Client(name , email , password , phone);
+                    Client client = snapshot.getValue(Client.class);
                     listener.onUserDetailsFetched(client);
                 }
                 else {
@@ -216,16 +205,20 @@ public class FirebaseManager {
         void onUserDetailsFetched(Client client);
     }
 
-    public void getAvailableHours(String date , ArrayList<String> availableHours, Context context , onAvailableHoursFetchedListener listener) {
+    // Fetch available appointment hours at the barbershop
+    public void fetchAvailableHours(String date , ArrayList<String> availableHours, Context context , onAvailableHoursFetchedListener listener) {
         mDatabase.child("Appointments").child(date).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 boolean isExist = snapshot.exists();
+                // If the date exists in the database, there are appointments scheduled for that date
                 if(isExist) {
                     for(int hour = 10; hour <= 21; hour++)
                     {
+                        // If the hour node exists in the database, there is an appointment scheduled for that hour
                         if(!snapshot.hasChild(String.valueOf(hour) + ":00"))
                         {
+                            // Add only available hours
                             availableHours.add(String.valueOf(hour) + ":00");
                         }
                     }
@@ -250,12 +243,16 @@ public class FirebaseManager {
         void onAvailableHoursFetched(ArrayList<String> availableHours);
     }
 
+    // Set an Appointment at the barbershop
     public void setAppointment(Appointment appointment, Context context) {
 
-        String uid = mAuth.getUid();
+        String uid = appointment.getClient().getUid();
 
+        // Set appointment on client record
         mDatabase.child("Clients").child(uid).child("Appointments").
                 child(appointment.getDate()).child(appointment.getTime()).setValue(appointment);
+
+        // Set appointment on Appointments collection
         mDatabase.child("Appointments").child(appointment.getDate()).child(appointment.getTime()).
                 setValue(appointment);
 
@@ -316,48 +313,77 @@ public class FirebaseManager {
         return false;
     }
 
-    public void fetchClientAppointments(Context context , ArrayList<Appointment> appointments , onClientAppointmentsFetchedListener listener){
+    // Fetching Upcoming appointments for clients and managers
+    public void fetchAppointments(Context context , ArrayList<Appointment> appointments , boolean isManager , onAppointmentsFetchedListener listener) {
 
-        String uid = mAuth.getUid();
-        DatabaseReference clientAppointmentsRef = mDatabase.child("Clients")
-                .child(uid)
-                .child("Appointments");
+        // If the function called by a client, it will retrieve only their appointments from the database.
+        if (!isManager) {
+            String uid = mAuth.getUid();
+            DatabaseReference clientAppointmentsRef = mDatabase.child("Clients")
+                    .child(uid)
+                    .child("Appointments");
+            clientAppointmentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dateSnapshot : snapshot.getChildren()){
+                        String date = dateSnapshot.getKey();
 
-        clientAppointmentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dateSnapshot : snapshot.getChildren()){
-                    String date = dateSnapshot.getKey();
-
-                    if (isFutureTime((date + " 23:59"))) {
-                        for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
-                            String time = timeSnapshot.getKey();
-                            if (isFutureTime(date + " " + time)) {
-                                appointments.add(timeSnapshot.getValue(Appointment.class));
+                        if (isFutureTime((date + " 23:59"))) {
+                            for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
+                                String time = timeSnapshot.getKey();
+                                if (isFutureTime(date + " " + time)) {
+                                    appointments.add(timeSnapshot.getValue(Appointment.class));
+                                }
                             }
                         }
                     }
+                    listener.onAppointmentsFetched(appointments);
                 }
-                listener.onClientAppointmentsFetched(appointments);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        // If the function called by a manager , fetch all Upcoming appointments at the barbershop
+        else {
+            mDatabase.child("Appointments").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot dateSnapshot : snapshot.getChildren()){
+                        String date = dateSnapshot.getKey();
 
+                        if (isFutureTime((date + " 23:59"))) {
+                            for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
+                                String time = timeSnapshot.getKey();
+                                if (isFutureTime(date + " " + time)) {
+                                    appointments.add(timeSnapshot.getValue(Appointment.class));
+                                }
+                            }
+                        }
+                    }
+                    listener.onAppointmentsFetched(appointments);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public interface onAppointmentsFetchedListener {
+        void onAppointmentsFetched(ArrayList<Appointment> appointments);
     }
 
-    public interface onClientAppointmentsFetchedListener {
-        void onClientAppointmentsFetched(ArrayList<Appointment> appointments);
-    }
-
-    public void cancelAppointmentByClient(String date , String time) {
-        String uid = mAuth.getUid();
+    public void cancelAppointment(Appointment appointment) {
         DatabaseReference appointmentsRef = mDatabase.child("Appointments");
-        DatabaseReference clientAppointmentsRef = mDatabase.child("Clients").child(uid).child("Appointments");
 
+        String date = appointment.getDate();
+        String time = appointment.getTime();
+        String uid = appointment.getClient().getUid();
+
+        // Delete appointment from appointments collection
         appointmentsRef.child(date).child(time).removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -371,6 +397,8 @@ public class FirebaseManager {
                     }
                 });
 
+        // Delete appointment from client record
+        DatabaseReference clientAppointmentsRef = mDatabase.child("Clients").child(uid).child("Appointments");
         clientAppointmentsRef.child(date).child(time).removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -385,6 +413,7 @@ public class FirebaseManager {
                 });
     }
 
+    // Fetch barbershop services list
     public void fetchServicesList(Context context , ArrayList<Service> servicesList , onServicesFetchedListener listener) {
 
         DatabaseReference servicesRef = mDatabase.child("Services");
@@ -399,7 +428,6 @@ public class FirebaseManager {
                 }
                 listener.onServicesFetched(servicesList);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
@@ -412,14 +440,14 @@ public class FirebaseManager {
         void onServicesFetched(ArrayList<Service> services);
     }
 
+    // Sign out function
     public void signOut(Context context) {
         FirebaseManager.getInstance().mAuth.signOut();
         Intent intent = new Intent(context, AuthActivity.class);
         context.startActivity(intent);
     }
 
-
-    // /////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Fetch manager details from database
     public void fetchManagerDetails(String managerId , onManagerDetailsFetchedListener listener) {
@@ -451,7 +479,7 @@ public class FirebaseManager {
         void onManagerDetailsFetched(Manager manager);
     }
 
-    // Fetch the next appointment in the barbershop
+    // Fetch the next appointment at the barbershop
     public void fetchNextAppointment(onNextAppointmentFetchedListener listener) {
 
         mDatabase.child("Appointments").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -487,5 +515,60 @@ public class FirebaseManager {
         void onNextAppointmentsFetched(Appointment appointment);
     }
 
+    public void fetchClientsList(Context context , ArrayList<Client> clientArrayList , onClientsListFetchedListener listener){
 
+        mDatabase.child("Clients").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot clientSnapshot : snapshot.getChildren()) {
+                    clientArrayList.add(clientSnapshot.getValue(Client.class));
+                }
+                listener.onClientsListFetched(clientArrayList);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
+                listener.onClientsListFetched(null);
+            }
+        });
+    }
+    public interface onClientsListFetchedListener {
+        void onClientsListFetched(ArrayList<Client> clientArrayList);
+    }
+
+    public void deleteClientAccount(Client clientToDelete) {
+        String uid = clientToDelete.getUid();
+        mDatabase.child("Clients").child(uid).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                deleteAllClientAppointments(clientToDelete);
+            }
+        });
+    }
+
+    private void deleteAllClientAppointments(Client clientToDelete) {
+        mDatabase.child("Appointments").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot appointmentDateSnapshot : snapshot.getChildren()) {
+                    String appointmentDate = appointmentDateSnapshot.getKey().toString();
+                    for (DataSnapshot appointmentHourSnapshot :appointmentDateSnapshot.getChildren()) {
+
+                        String appointmentHour = appointmentHourSnapshot.getKey().toString();
+                        Client client = appointmentHourSnapshot.child("client").getValue(Client.class);
+
+                        assert client != null;
+                        if (Objects.equals(client.getUid(), clientToDelete.getUid())){
+                            mDatabase.child("Appointments").child(appointmentDate).child(appointmentHour).removeValue();
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                return;
+            }
+        });
+    }
 }

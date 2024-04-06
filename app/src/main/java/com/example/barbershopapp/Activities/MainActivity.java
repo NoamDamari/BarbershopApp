@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         nextServiceTV = findViewById(R.id.nextServiceTV);
         cardHeadlineTV = findViewById(R.id.cardHeadlineTV);
 
-        FirebaseManager.getInstance().getCurrentUserDetails(new FirebaseManager.onUserDetailsFetchedListener() {
+        FirebaseManager.getInstance().fetchCurrentUserDetails(new FirebaseManager.onUserDetailsFetchedListener() {
             @Override
             public void onUserDetailsFetched(Client client) {
                 currentUser = client;
@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("email" , currentUser.getEmail());
                 intent.putExtra("password" , currentUser.getPassword());
                 intent.putExtra("phone" , currentUser.getPhone());
+                intent.putExtra("uid" , currentUser.getUid());
+
                 startActivity(intent);
             }
         });
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("email" , currentUser.getEmail());
                 intent.putExtra("password" , currentUser.getPassword());
                 intent.putExtra("phone" , currentUser.getPhone());
+                intent.putExtra("uid" , currentUser.getUid());
                 startActivity(intent);
             }
         });
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("email" , currentUser.getEmail());
                 intent.putExtra("password" , currentUser.getPassword());
                 intent.putExtra("phone" , currentUser.getPhone());
+                intent.putExtra("uid" , currentUser.getUid());
                 startActivity(intent);
             }
         });
@@ -124,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("email" , currentUser.getEmail());
                 intent.putExtra("password" , currentUser.getPassword());
                 intent.putExtra("phone" , currentUser.getPhone());
+                intent.putExtra("uid" , currentUser.getUid());
                 startActivity(intent);
             }
         });

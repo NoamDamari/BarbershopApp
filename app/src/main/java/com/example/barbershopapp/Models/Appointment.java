@@ -5,6 +5,23 @@ public class Appointment {
     private String time;
     private String serviceType;
     private Client client;
+    //private String clientUid;
+
+    public Appointment(String date, String time, String serviceType, Client client, String clientUid) {
+        this.date = date;
+        this.time = time;
+        this.serviceType = serviceType;
+        this.client = client;
+        //this.clientUid = clientUid;
+    }
+
+    public Appointment(Appointment appointment , String clientUid) {
+        this.date = appointment.getDate();
+        this.time = appointment.getTime();
+        this.serviceType = appointment.getServiceType();
+        this.client = appointment.getClient();
+        //this.clientUid = clientUid;
+    }
 
     public Appointment(String date, String time, String serviceType, Client client) {
         this.date = date;
@@ -22,6 +39,7 @@ public class Appointment {
         this.time = "time";
         this.serviceType = "serviceType";
         this.client = new Client();
+        //this.clientUid = "uid";
     }
 
     public String getDate() {
@@ -55,4 +73,12 @@ public class Appointment {
     public void setClient(Client client) {
         this.client = client;
     }
+
+    /*public String getClientUid() {
+        return clientUid;
+    }
+
+    public void setClientUid(String clientUid) {
+        this.clientUid = clientUid;
+    }*/
 }

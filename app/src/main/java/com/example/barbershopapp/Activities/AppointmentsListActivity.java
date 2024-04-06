@@ -40,11 +40,11 @@ public class AppointmentsListActivity extends AppCompatActivity {
         returnBtn = findViewById(R.id.returnBtn2);
 
 
-        FirebaseManager.getInstance().fetchClientAppointments(AppointmentsListActivity.this, clientAppointments, new FirebaseManager.onClientAppointmentsFetchedListener() {
+        FirebaseManager.getInstance().fetchAppointments(AppointmentsListActivity.this, clientAppointments , false , new FirebaseManager.onAppointmentsFetchedListener() {
             @Override
-            public void onClientAppointmentsFetched(ArrayList<Appointment> appointmentsList) {
+            public void onAppointmentsFetched(ArrayList<Appointment> appointmentsList) {
                 Collections.reverse(appointmentsList);
-                adapter = new AppointmentsAdapter(appointmentsList);
+                adapter = new AppointmentsAdapter(appointmentsList ,false);
                 appointmentsRV.setAdapter(adapter);
             }
         });
