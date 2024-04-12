@@ -4,32 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="32dp"
-    tools:context=".Activities.ContactActivity">
+    android:backgroundTint="#FFFFFF"
+    android:foregroundTint="#FFFFFF"
+    tools:context=".Fragments.ContactFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_dark"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:padding="10dp"
-            android:text="Contact"
-            android:textColor="#ECECEC"
-            android:textSize="40sp"
-            android:textStyle="bold" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -40,9 +18,10 @@
         android:layout_marginEnd="24dp"
         android:background="@drawable/background_grey"
         android:orientation="vertical"
-        android:padding="4dp"
+        android:padding="12dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintVertical_chainStyle="spread">
@@ -59,18 +38,22 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#FFFFFF"
+                android:foregroundTint="#FFFFFF"
                 android:minHeight="32dp"
-                android:src="@drawable/icon_phone" />
+                android:src="@drawable/icon_phone"
+                app:tint="#121212"
+                android:contentDescription="@string/phone_icon" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="000 - 00 000 00"
-                android:textColor="@color/black"
+                android:text="@string/barbershop_phone_number"
+                android:textColor="#121212"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -86,18 +69,22 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#FFFFFF"
+                android:foregroundTint="#FFFFFF"
                 android:minHeight="32dp"
-                android:src="@drawable/icon_email" />
+                android:src="@drawable/icon_email"
+                app:tint="#121212"
+                android:contentDescription="@string/email_icon" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="barbershop@gmail.com"
-                android:textColor="@color/black"
+                android:text="@string/barbershop_email"
+                android:textColor="#121212"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -113,18 +100,22 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#FFFFFF"
+                android:foregroundTint="#FFFFFF"
                 android:minHeight="32dp"
-                android:src="@drawable/icon_location_black" />
+                android:src="@drawable/icon_location_black"
+                app:tint="#121212"
+                android:contentDescription="@string/location_icon" />
 
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Street 123"
-                android:textColor="@color/black"
+                android:text="@string/barbershop_address"
+                android:textColor="#121212"
                 android:textSize="24sp" />
         </LinearLayout>
 
@@ -140,18 +131,22 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="#FFFFFF"
+                android:foregroundTint="#FFFFFF"
                 android:minHeight="32dp"
-                android:src="@drawable/icon_clock" />
+                android:src="@drawable/icon_clock"
+                app:tint="#121212"
+                android:contentDescription="@string/clock_icon" />
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="10:00 - 22:00"
-                android:textColor="@color/black"
+                android:text="@string/opening_hours"
+                android:textColor="#121212"
                 android:textSize="24sp" />
         </LinearLayout>
     </LinearLayout>
@@ -160,20 +155,19 @@
         android:id="@+id/linearLayout7"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:background="@drawable/background_grey"
         android:orientation="horizontal"
         android:padding="2dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout6"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/linearLayout6"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <ImageView
             android:id="@+id/imageView12"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
@@ -181,12 +175,13 @@
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:padding="4dp"
-            android:src="@drawable/facebook_logo" />
+            android:src="@drawable/facebook_logo"
+            android:contentDescription="@string/facebook_logo" />
 
         <ImageView
             android:id="@+id/imageView13"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
@@ -194,12 +189,13 @@
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:padding="4dp"
-            android:src="@drawable/instagram_logo" />
+            android:src="@drawable/instagram_logo"
+            android:contentDescription="@string/instagram_logo" />
 
         <ImageView
             android:id="@+id/imageView14"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
@@ -207,12 +203,13 @@
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:padding="4dp"
-            android:src="@drawable/whatsapp_logo" />
+            android:src="@drawable/whatsapp_logo"
+            android:contentDescription="@string/whatsapp_logo" />
 
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_margin="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
@@ -220,7 +217,8 @@
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:padding="4dp"
-            android:src="@drawable/tiktok_logo" />
+            android:src="@drawable/tiktok_logo"
+            android:contentDescription="@string/tiktok_logo" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -228,26 +226,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Contact us through social media"
-        android:textColor="#1F4C21"
-        android:textSize="22sp"
+        android:text="@string/find_us_on_social_media"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

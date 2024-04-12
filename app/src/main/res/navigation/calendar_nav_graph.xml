@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendar_nav_graph"
+    app:startDestination="@id/managerCalendarFragment">
+
+    <fragment
+        android:id="@+id/managerCalendarFragment"
+        android:name="com.example.barbershopapp.Fragments.ManagerCalendarFragment"
+        android:label="fragment_manager_calendar"
+        tools:layout="@layout/fragment_manager_calendar" >
+        <action
+            android:id="@+id/action_managerCalendarFragment_to_blockingTimeFragment"
+            app:destination="@id/blockingTimeFragment" />
+        <action
+            android:id="@+id/action_managerCalendarFragment_to_unblockingTimeFragment"
+            app:destination="@id/unblockingTimeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blockingTimeFragment"
+        android:name="com.example.barbershopapp.Fragments.BlockingTimeFragment"
+        android:label="fragment_blocking_time"
+        tools:layout="@layout/fragment_blocking_time" />
+    <fragment
+        android:id="@+id/unblockingTimeFragment"
+        android:name="com.example.barbershopapp.Fragments.UnblockingTimeFragment"
+        android:label="fragment_unblocking_time"
+        tools:layout="@layout/fragment_unblocking_time" />
+</navigation>

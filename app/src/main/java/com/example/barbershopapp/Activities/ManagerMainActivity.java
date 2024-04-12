@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Fragments.ClientsFragment;
+import com.example.barbershopapp.Fragments.ManagerCalendarFragment;
+import com.example.barbershopapp.Fragments.ManagerServicesFragment;
 import com.example.barbershopapp.Fragments.ScheduleFragment;
+import com.example.barbershopapp.Fragments.UnblockingTimeFragment;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Manager;
 import com.example.barbershopapp.R;
@@ -53,11 +56,14 @@ public class ManagerMainActivity extends AppCompatActivity {
         nextClientTV = findViewById(R.id.mNextClientNameTV);
         cardHeadlineTV = findViewById(R.id.mCardHeadlineTV);
 
-        Intent intent = getIntent();
+        /*Intent intent = getIntent();
         String managerId = null;
         if (intent != null) {
             managerId = intent.getStringExtra("manager id");
-        }
+        }*/
+
+        Intent intent = getIntent();
+        String managerId = intent.getStringExtra("manager id");
 
         FirebaseManager.getInstance().fetchManagerDetails( managerId , new FirebaseManager.onManagerDetailsFetchedListener() {
             @Override
@@ -96,11 +102,13 @@ public class ManagerMainActivity extends AppCompatActivity {
         toCalendarCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagerMainActivity.this, SetAppointmentActivity.class);
-                intent.putExtra("username" , currentManager.getUsername());
-                intent.putExtra("email" , currentManager.getEmail());
-                intent.putExtra("password" , currentManager.getPassword());
-                startActivity(intent);
+
+                Intent intent2 = new Intent(ManagerMainActivity.this, CalenderManagementActivity.class);
+                intent2.putExtra("username" , currentManager.getUsername());
+                intent2.putExtra("email" , currentManager.getEmail());
+                intent2.putExtra("password" , currentManager.getPassword());
+                intent2.putExtra("manager id" , currentManager.getManagerId());
+                startActivity(intent2);
             }
         });
 
@@ -121,11 +129,7 @@ public class ManagerMainActivity extends AppCompatActivity {
         toServicesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManagerMainActivity.this, ServicesActivity.class);
-                intent.putExtra("username" , currentManager.getUsername());
-                intent.putExtra("email" , currentManager.getEmail());
-                intent.putExtra("password" , currentManager.getPassword());
-                startActivity(intent);
+                openNextActivity(ManagerServicesFragment.class);
             }
         });
 
@@ -142,6 +146,7 @@ public class ManagerMainActivity extends AppCompatActivity {
         intent.putExtra("username" , currentManager.getUsername());
         intent.putExtra("email" , currentManager.getEmail());
         intent.putExtra("password" , currentManager.getPassword());
+        intent.putExtra("manager id" , currentManager.getManagerId());
         intent.putExtra("Fragment to display", fragmentClass.getName());
         startActivity(intent);
     }

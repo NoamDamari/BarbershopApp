@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.barbershopapp.Adapters.ClientsAdapter;
-import com.example.barbershopapp.Adapters.ServicesLinearAdapter;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Models.Client;
 import com.example.barbershopapp.R;
@@ -43,7 +42,7 @@ public class ClientsFragment extends Fragment {
         clientsRV = view.findViewById(R.id.clientsRV);
         layoutManager = new LinearLayoutManager(getContext());
         clientsRV.setLayoutManager(layoutManager);
-        clientsRV.setItemAnimator(new DefaultItemAnimator());;
+        clientsRV.setItemAnimator(new DefaultItemAnimator());
 
         ArrayList<Client> clients = new ArrayList<>();
 

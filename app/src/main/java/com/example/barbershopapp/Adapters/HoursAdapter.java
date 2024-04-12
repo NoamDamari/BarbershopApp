@@ -28,7 +28,6 @@ public class HoursAdapter extends RecyclerView.Adapter<HoursAdapter.ViewHolder> 
             super(itemView);
             this.hourTV = itemView.findViewById(R.id.hourTV);
         }
-
     }
 
     @NonNull
@@ -53,6 +52,7 @@ public class HoursAdapter extends RecyclerView.Adapter<HoursAdapter.ViewHolder> 
                         .findFragmentById(R.id.fragmentContainerView2);
 
                 // Get the current fragment within the NavHostFragment
+                assert navHostFragment != null;
                 Fragment currentFragment = navHostFragment.getChildFragmentManager().getPrimaryNavigationFragment();
 
                 if (currentFragment instanceof CalendarFragment) {

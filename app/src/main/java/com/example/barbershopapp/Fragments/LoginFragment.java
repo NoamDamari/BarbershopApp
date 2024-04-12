@@ -19,9 +19,6 @@ public class LoginFragment extends Fragment {
 
     private EditText emailET;
     private EditText passwordET;
-    private Button loginBtn;
-    private Button regBtn;
-    private Button managerLoginBtn;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -42,42 +39,28 @@ public class LoginFragment extends Fragment {
 
         emailET = view.findViewById(R.id.loginEmailInput);
         passwordET = view.findViewById(R.id.loginPasswordInput);
-        loginBtn = view.findViewById(R.id.loginBtn);
-        regBtn = view.findViewById(R.id.regBtn);
-        managerLoginBtn = view.findViewById(R.id.loginAsManagerBtn);
+        Button loginBtn = view.findViewById(R.id.loginBtn);
+        Button regBtn = view.findViewById(R.id.regBtn);
+        Button managerLoginBtn = view.findViewById(R.id.loginAsManagerBtn);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        loginBtn.setOnClickListener(v -> {
 
-                String email = emailET.getText().toString();
-                String password = passwordET.getText().toString();
+            String email = emailET.getText().toString();
+            String password = passwordET.getText().toString();
 
-                if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else {
-                    FirebaseManager.getInstance().login(email , password , getContext());
-                }
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                FirebaseManager.getInstance().login(email , password , getContext());
             }
         });
 
-        // Navigation to RegisterFragment
-        regBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
-            }
-        });
+        // Navigation to Register Fragment
+        regBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment));
 
-        // Navigation to ManagerLoginFragment
-        managerLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_managerLoginFragment);
-            }
-        });
+        // Navigation to Manager Login Fragment
+        managerLoginBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_managerLoginFragment));
 
         return  view;
     }

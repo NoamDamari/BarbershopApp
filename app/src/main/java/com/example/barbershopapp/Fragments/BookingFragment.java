@@ -1,5 +1,6 @@
 package com.example.barbershopapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,16 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.barbershopapp.Activities.SetAppointmentActivity;
+import com.example.barbershopapp.Activities.MainActivity;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
 import com.example.barbershopapp.R;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class BookingFragment extends Fragment {
 
@@ -28,6 +24,7 @@ public class BookingFragment extends Fragment {
     TextView selectedTimeTV;
     TextView selectedServiceTV;
     Button setAppointmentBtn;
+    Button backToMainBtn;
 
     public BookingFragment() {
         // Required empty public constructor
@@ -42,6 +39,7 @@ public class BookingFragment extends Fragment {
         selectedTimeTV = view.findViewById(R.id.textView7);
         selectedServiceTV = view.findViewById(R.id.textView8);
         setAppointmentBtn = view.findViewById(R.id.setAppointmentBtn);
+        backToMainBtn = view.findViewById(R.id.backToMainFromBookingBtn);
 
         Bundle bundle = new Bundle();
         bundle = getArguments();
@@ -51,7 +49,6 @@ public class BookingFragment extends Fragment {
         selectedServiceTV.setText(bundle.getString("selected service"));
 
         setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 String date = selectedDateTV.getText().toString();
@@ -76,6 +73,15 @@ public class BookingFragment extends Fragment {
                         Toast.makeText(getContext() ,"Appointment Set FAILED", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        backToMainBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         return view;

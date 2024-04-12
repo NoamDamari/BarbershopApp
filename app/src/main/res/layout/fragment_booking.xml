@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Fragments.BookingFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +12,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:background="@drawable/background_black"
-        android:padding="16dp"
+        android:padding="18dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline22"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
         app:layout_constraintStart_toStartOf="@+id/guideline23"
@@ -21,11 +22,12 @@
             android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Appointment Details"
-            android:textColor="#EFEFEF"
-            android:textSize="32sp"
+            android:text="@string/appointment_ndetails"
+            android:textColor="#E8E8E8"
+            android:textSize="44sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,10 +35,10 @@
             android:id="@+id/linearLayout10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_grey"
+            android:background="@drawable/green_frame"
             android:orientation="vertical"
-            android:padding="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/setAppointmentBtn"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout22"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView23">
@@ -55,17 +57,18 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.15"
+                    android:contentDescription="@string/calendar_icon"
                     android:minHeight="32dp"
                     android:src="@drawable/icon_calendar"
-                    app:tint="@color/black" />
+                    app:tint="#F8F8F8" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.85"
-                    android:text="Date"
-                    android:textColor="@color/black"
+                    android:text="@string/date"
+                    android:textColor="#F8F8F8"
                     android:textSize="28sp" />
             </LinearLayout>
 
@@ -83,16 +86,18 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.15"
+                    android:contentDescription="@string/clock_icon"
                     android:minHeight="32dp"
-                    android:src="@drawable/icon_clock" />
+                    android:src="@drawable/icon_clock"
+                    app:tint="#F8F8F8" />
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
-                    android:text="Time"
-                    android:textColor="@color/black"
+                    android:text="@string/time"
+                    android:textColor="#F8F8F8"
                     android:textSize="28sp" />
             </LinearLayout>
 
@@ -110,35 +115,60 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.17"
+                    android:contentDescription="@string/scissors_icon"
                     android:minHeight="32dp"
                     android:src="@drawable/icon_scissors"
-                    app:tint="@color/black" />
+                    app:tint="#F8F8F8" />
 
                 <TextView
                     android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.83"
-                    android:text="Service"
-                    android:textColor="@color/black"
+                    android:text="@string/service"
+                    android:textColor="#F8F8F8"
                     android:textSize="28sp" />
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/setAppointmentBtn"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout22"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_white"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:text="Set Appointment"
-            android:textColor="@color/black"
-            android:textSize="22dp"
-            android:textStyle="bold"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/setAppointmentBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_white"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:minHeight="48dp"
+                android:layout_marginVertical="4dp"
+                android:text="@string/set_appointment"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/backToMainFromBookingBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_white"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:minHeight="48dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/back_to_main"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,28 +177,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.07" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.93" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

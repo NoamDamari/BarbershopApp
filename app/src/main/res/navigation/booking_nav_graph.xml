@@ -11,7 +11,7 @@
         android:label="fragment_calender"
         tools:layout="@layout/fragment_calender" >
         <action
-            android:id="@+id/action_calenderFragment_to_servicesFragment"
+            android:id="@+id/action_calendarFragment_to_servicesFragment"
             app:destination="@id/servicesFragment" />
     </fragment>
     <fragment

@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:text="Service price"
             android:textAlignment="textEnd"
-            android:textColor="#C5A856"
+            android:textColor="@color/green1"
             android:textSize="26sp"
             android:textStyle="bold"/>
     </LinearLayout>

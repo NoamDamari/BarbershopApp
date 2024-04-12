@@ -15,8 +15,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.barbershopapp.Activities.ServicesActivity;
-import com.example.barbershopapp.Adapters.ServicesAdapter;
 import com.example.barbershopapp.Adapters.ServicesLinearAdapter;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Models.Service;
@@ -37,7 +35,6 @@ public class ServicesFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,9 +46,9 @@ public class ServicesFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getContext());
         servicesRV = view.findViewById(R.id.servicesLinearRV);
         servicesRV.setLayoutManager(layoutManager);
-        servicesRV.setItemAnimator(new DefaultItemAnimator());;
+        servicesRV.setItemAnimator(new DefaultItemAnimator());
 
-        ArrayList<Service> serviceArrayList = new ArrayList<Service>();
+        ArrayList<Service> serviceArrayList = new ArrayList<>();
 
         FirebaseManager.getInstance().fetchServicesList(getContext(), serviceArrayList, new FirebaseManager.onServicesFetchedListener() {
             @Override
@@ -61,12 +58,7 @@ public class ServicesFragment extends Fragment {
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_servicesFragment_to_calenderFragment);
-            }
-        });
+        backBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_servicesFragment_to_calenderFragment));
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +66,7 @@ public class ServicesFragment extends Fragment {
 
                 String selectedService = selectedServiceTV.getText().toString();
 
-                if(selectedService.equals("Service")) {
+                if(selectedService.equals("Service Type")) {
                     Toast.makeText(getContext(), "Select Service Type", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -88,7 +80,7 @@ public class ServicesFragment extends Fragment {
         return view;
     }
 
-    public void updateSelectedService(Service selectedService) {
-        selectedServiceTV.setText(selectedService.getServiceName());
+    public void updateSelectedService(Service selectedService2) {
+        selectedServiceTV.setText(selectedService2.getServiceName());
     }
 }

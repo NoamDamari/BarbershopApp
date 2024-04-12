@@ -10,4 +10,67 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="welcome">Welcome</string>
+    <string name="sign_in_or_create_new_account">Sign in or create new account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="login_as_manager">Login as manager</string>
+    <string name="barbershop_logo">Barbershop logo</string>
+    <string name="user_icon">user icon</string>
+    <string name="create_account">Create Account</string>
+    <string name="username">Username</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="manager_id">Manager ID</string>
+    <string name="back_to_main">Back to main</string>
+    <string name="headline">Headline</string>
+    <string name="contact">Contact</string>
+    <string name="our_services">Our Services</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="default_title">Default Title</string>
+    <string name="phone_icon">phone icon</string>
+    <string name="barbershop_phone_number">000 - 00 000 00</string>
+    <string name="email_icon">email_icon</string>
+    <string name="barbershop_email">barbershop@gmail.com</string>
+    <string name="barbershop_address">Street 123</string>
+    <string name="clock_icon">clock icon</string>
+    <string name="location_icon">location icon</string>
+    <string name="opening_hours">10:00 - 22:00</string>
+    <string name="facebook_logo">facebook logo</string>
+    <string name="instagram_logo">instagram logo</string>
+    <string name="whatsapp_logo">whatsapp logo</string>
+    <string name="tiktok_logo">tiktok logo</string>
+    <string name="find_us_on_social_media">Find us on social media</string>
+    <string name="set_appointment">Set Appointment</string>
+    <string name="select_date_and_time"><![CDATA[Select date & time]]></string>
+    <string name="select_a_date_to_view_available_booking_slots">Select a date to view available booking slots</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="next">Next</string>
+    <string name="available_hours_for_today">"Available hours for today: "</string>
+    <string name="select_service_type">Select Service Type</string>
+    <string name="service_type">Service Type</string>
+    <string name="back">Back</string>
+    <string name="appointment_ndetails">Appointment\nDetails</string>
+    <string name="calendar_icon">calendar icon</string>
+    <string name="scissors_icon">scissors icon</string>
+    <string name="service">Service</string>
+    <string name="unblock">Unblock</string>
+    <string name="block">Block</string>
+    <string name="choose_your_action">Choose Your Action</string>
+    <string name="barber_image">Barbar image</string>
+    <string name="start_time">Start time</string>
+    <string name="hh_mm">HH:mm</string>
+    <string name="end_time">End time</string>
+    <string name="start_date">Start date</string>
+    <string name="dd_mm_yyyy">dd-MM-yyyy</string>
+    <string name="end_date">End date</string>
+    <string name="select_time_range">Select time range</string>
+    <string name="block_time_range">Block time range</string>
+    <string name="select_time_range_to_unblock">Select time range to unblock</string>
+    <string name="or_unblock_specific_time">Or unblock specific time</string>
+
 </resources>

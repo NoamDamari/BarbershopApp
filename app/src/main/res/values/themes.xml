@@ -6,7 +6,8 @@
     </style>
 
     <style name="MyCalendarViewDateStyle">
-        <item name="android:colorControlActivated">#C5A856</item>
+        <!-- ><item name="android:colorControlActivated">#C5A856</item> -->
+        <item name="android:colorControlActivated">#006349</item>
     </style>
 
     <style name="Theme.BarbershopApp" parent="Base.Theme.BarbershopApp" />

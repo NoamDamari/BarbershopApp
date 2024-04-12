@@ -21,8 +21,6 @@ public class ManagerLoginFragment extends Fragment {
     private EditText managerEmailET;
     private EditText managerPasswordET;
     private EditText managerIdET;
-    private Button managerLoginBtn;
-    private Button managerBackToLoginBtn;
 
     public ManagerLoginFragment() {
         // Required empty public constructor
@@ -43,33 +41,25 @@ public class ManagerLoginFragment extends Fragment {
         managerPasswordET = view.findViewById(R.id.managerPasswordInput);
         managerIdET = view.findViewById(R.id.managerIdInput);
 
-        managerLoginBtn = view.findViewById(R.id.managerLoginBtn);
-        managerBackToLoginBtn = view.findViewById(R.id.managerBackToLoginBtn);
+        Button managerLoginBtn = view.findViewById(R.id.managerLoginBtn);
+        Button managerBackToLoginBtn = view.findViewById(R.id.managerBackToLoginBtn);
 
-        managerLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //String name = managerNameET.getText().toString();
-                String email = managerEmailET.getText().toString();
-                String password = managerPasswordET.getText().toString();
-                String managerId = managerIdET.getText().toString();
+        managerLoginBtn.setOnClickListener(v -> {
+            String name = managerNameET.getText().toString();
+            String email = managerEmailET.getText().toString();
+            String password = managerPasswordET.getText().toString();
+            String managerId = managerIdET.getText().toString();
 
-                if (email.isEmpty() || password.isEmpty() || managerId.isEmpty()) {
-                    Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else{
-                    FirebaseManager.getInstance().managerLogin(email , password , managerId , getContext());
-                }
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || managerId.isEmpty()) {
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                FirebaseManager.getInstance().managerLogin(email , password , managerId , getContext());
             }
         });
 
-        managerBackToLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_managerLoginFragment_to_loginFragment);
-            }
-        });
+        // Navigation back to Login Fragment
+        managerBackToLoginBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_managerLoginFragment_to_loginFragment));
         return  view;
     }
 }

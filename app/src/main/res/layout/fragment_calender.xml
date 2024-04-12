@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Select date and time"
+        android:text="@string/select_date_and_time"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -52,9 +52,10 @@
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select a date to see available hours"
+            android:text="@string/select_a_date_to_view_available_booking_slots"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -87,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Date"
+                android:text="@string/date"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -97,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Time"
+                android:text="@string/time"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -111,7 +112,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_black"
         android:drawableTint="#FFFFFF"
-        android:text="Next"
+        android:text="@string/next"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

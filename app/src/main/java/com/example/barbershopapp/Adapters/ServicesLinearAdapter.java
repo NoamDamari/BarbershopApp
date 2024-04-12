@@ -64,7 +64,6 @@ public class ServicesLinearAdapter extends RecyclerView.Adapter<ServicesLinearAd
                     ServicesFragment servicesFragment = (ServicesFragment) currentFragment;
                     ((ServicesFragment) currentFragment).updateSelectedService(selectedService);
                 }
-                //((SetAppointmentActivity) holder.itemView.getContext()).selectedHourTV.setText(selectedHour);
             }
         });
     }

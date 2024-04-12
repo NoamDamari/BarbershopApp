@@ -11,13 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.barbershopapp.FirebaseManager;
+import com.example.barbershopapp.Fragments.AppointmentsListFragment;
+import com.example.barbershopapp.Fragments.ClientServicesFragment;
+import com.example.barbershopapp.Fragments.ClientsFragment;
+import com.example.barbershopapp.Fragments.ContactFragment;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
 import com.example.barbershopapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    Client currentUser;
+    Client currentClient;
     Appointment closestAppointment;
     private TextView usernameTV;
     private ImageView signOutBtn;
@@ -52,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseManager.getInstance().fetchCurrentUserDetails(new FirebaseManager.onUserDetailsFetchedListener() {
             @Override
             public void onUserDetailsFetched(Client client) {
-                currentUser = client;
-                String name = currentUser.getUsername();
+                currentClient = client;
+                String name = currentClient.getUsername();
                 usernameTV.setText(name);
             }
         });
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     nextAppointmentLayout.setVisibility(View.VISIBLE);
 
                     cardHeadlineTV.setText("Next Appointment:");
+                    cardHeadlineTV.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     nextDateTV.setText(date);
                     nextTimeTV.setText(time);
                     nextServiceTV.setText(serviceType);
@@ -84,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SetAppointmentActivity.class);
-                intent.putExtra("username" , currentUser.getUsername());
-                intent.putExtra("email" , currentUser.getEmail());
-                intent.putExtra("password" , currentUser.getPassword());
-                intent.putExtra("phone" , currentUser.getPhone());
-                intent.putExtra("uid" , currentUser.getUid());
+                intent.putExtra("username" , currentClient.getUsername());
+                intent.putExtra("email" , currentClient.getEmail());
+                intent.putExtra("password" , currentClient.getPassword());
+                intent.putExtra("phone" , currentClient.getPhone());
+                intent.putExtra("uid" , currentClient.getUid());
 
                 startActivity(intent);
             }
@@ -97,39 +102,21 @@ public class MainActivity extends AppCompatActivity {
         toAppointmentsListCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AppointmentsListActivity.class);
-                intent.putExtra("username" , currentUser.getUsername());
-                intent.putExtra("email" , currentUser.getEmail());
-                intent.putExtra("password" , currentUser.getPassword());
-                intent.putExtra("phone" , currentUser.getPhone());
-                intent.putExtra("uid" , currentUser.getUid());
-                startActivity(intent);
+                openNextActivity(AppointmentsListFragment.class);
             }
         });
 
         toContactCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ContactActivity.class);
-                intent.putExtra("username" , currentUser.getUsername());
-                intent.putExtra("email" , currentUser.getEmail());
-                intent.putExtra("password" , currentUser.getPassword());
-                intent.putExtra("phone" , currentUser.getPhone());
-                intent.putExtra("uid" , currentUser.getUid());
-                startActivity(intent);
+                openNextActivity(ContactFragment.class);
             }
         });
 
         toServicesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ServicesActivity.class);
-                intent.putExtra("username" , currentUser.getUsername());
-                intent.putExtra("email" , currentUser.getEmail());
-                intent.putExtra("password" , currentUser.getPassword());
-                intent.putExtra("phone" , currentUser.getPhone());
-                intent.putExtra("uid" , currentUser.getUid());
-                startActivity(intent);
+                openNextActivity(ClientServicesFragment.class);
             }
         });
 
@@ -139,5 +126,15 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseManager.getInstance().signOut(MainActivity.this);
             }
         });
+    }
+
+    private void openNextActivity(Class fragmentClass) {
+        Intent intent = new Intent(this, ClientActionsActivity.class);
+        intent.putExtra("username" , currentClient.getUsername());
+        intent.putExtra("email" , currentClient.getEmail());
+        intent.putExtra("password" , currentClient.getPassword());
+        intent.putExtra("phone" , currentClient.getPhone());
+        intent.putExtra("Fragment to display", fragmentClass.getName());
+        startActivity(intent);
     }
 }

@@ -23,8 +23,6 @@ public class RegisterFragment extends Fragment {
     private EditText emailET;
     private EditText passwordET;
     private EditText phoneNumberET;
-    private Button registerBtn;
-    private Button backToLoginBtn;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -45,37 +43,28 @@ public class RegisterFragment extends Fragment {
         emailET = view.findViewById(R.id.regEmailInput);
         passwordET = view.findViewById(R.id.regPasswordInput);
         phoneNumberET = view.findViewById(R.id.regPhoneInput);
+        Button registerBtn = view.findViewById(R.id.registerBtn);
+        Button backToLoginBtn = view.findViewById(R.id.backToLoginBtn);
 
-        registerBtn = view.findViewById(R.id.registerBtn);
-        backToLoginBtn = view.findViewById(R.id.backToLoginBtn);
+        registerBtn.setOnClickListener(v -> {
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            String username = usernameET.getText().toString();
+            String email = emailET.getText().toString();
+            String password = passwordET.getText().toString();
+            String phone = phoneNumberET.getText().toString();
 
-                String username = usernameET.getText().toString();
-                String email = emailET.getText().toString();
-                String password = passwordET.getText().toString();
-                String phone = phoneNumberET.getText().toString();
-
-                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()){
-                    Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                else {
-                    // Register the client and store details in the database
-                    Client client = new Client(username , email , password , phone);
-                    FirebaseManager.getInstance().register(client , getContext());
-                }
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()){
+                Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                // Register the client and store details in the database
+                Client client = new Client(username , email , password , phone);
+                FirebaseManager.getInstance().register(client , getContext());
             }
         });
 
-        backToLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
-            }
-        });
+        // Navigation back to Login Fragment
+        backToLoginBtn.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment));
 
         return view;
     }

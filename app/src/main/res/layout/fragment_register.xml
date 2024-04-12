@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/icon_user_grey" />
+        app:srcCompat="@drawable/icon_user"
+        android:contentDescription="@string/user_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -25,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/background_grey"
+        android:background="@drawable/button_silver"
         android:gravity="center"
         android:minWidth="340dp"
         android:orientation="vertical"
@@ -38,12 +39,14 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="283dp"
-            android:layout_height="65dp"
-            android:text="Enter your details below to create an account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="@string/create_account"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="32sp"
             android:textStyle="bold" />
 
         <EditText
@@ -51,10 +54,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:drawableLeft="@drawable/icon_user_black"
+            android:autofillHints="username"
+            android:drawableStart="@drawable/icon_user"
             android:drawablePadding="4dp"
+            android:drawableTint="#000000"
             android:ems="10"
-            android:hint="Username"
+            android:hint="@string/username"
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="8dp" />
@@ -64,39 +69,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:drawableLeft="@drawable/icon_email"
+            android:drawableStart="@drawable/icon_email"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:autofillHints="emailAddress" />
 
         <EditText
             android:id="@+id/regPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:drawableLeft="@drawable/icon_lock_black"
+            android:drawableStart="@drawable/icon_lock_black"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:autofillHints="password" />
 
         <EditText
             android:id="@+id/regPhoneInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:drawableLeft="@drawable/icon_phone"
+            android:drawableStart="@drawable/icon_phone"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Phone Number"
+            android:hint="@string/phone_number"
             android:inputType="text"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:autofillHints="phone" />
 
         <Button
             android:id="@+id/registerBtn"
@@ -106,9 +114,9 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
-            android:text="Register"
+            android:text="@string/register"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/backToLoginBtn"
@@ -118,9 +126,9 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
-            android:text="Back to Login"
+            android:text="@string/back_to_login"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

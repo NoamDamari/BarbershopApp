@@ -18,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        app:srcCompat="@drawable/icon_user_grey2" />
+        app:srcCompat="@drawable/icon_user_grey2"
+        android:contentDescription="@string/user_icon" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/background_grey"
+        android:background="@drawable/button_silver"
         android:gravity="center"
         android:minWidth="340dp"
         android:orientation="vertical"
@@ -42,10 +43,15 @@
             android:id="@+id/managerNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_user_black"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:autofillHints="username"
+            android:background="@drawable/input_layout_black"
+            android:drawableStart="@drawable/icon_user"
             android:drawablePadding="4dp"
+            android:drawableTint="#000000"
             android:ems="10"
-            android:hint="Name"
+            android:hint="@string/username"
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="8dp" />
@@ -54,37 +60,49 @@
             android:id="@+id/managerEmailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_email"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/input_layout_black"
+            android:drawableStart="@drawable/icon_email"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:autofillHints="emailAddress" />
 
         <EditText
             android:id="@+id/managerPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_lock_black"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/input_layout_black"
+            android:drawableStart="@drawable/icon_lock_black"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:autofillHints="password" />
 
         <EditText
             android:id="@+id/managerIdInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/icon_security_black"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/input_layout_black"
+            android:drawableStart="@drawable/icon_security_black"
             android:drawablePadding="4dp"
             android:ems="10"
-            android:hint="Manager ID"
+            android:hint="@string/manager_id"
             android:inputType="text"
             android:minHeight="48dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:autofillHints="password" />
 
         <Button
             android:id="@+id/managerLoginBtn"
@@ -94,9 +112,9 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/managerBackToLoginBtn"
@@ -106,10 +124,9 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/button_layout"
             android:backgroundTint="#1C1C1C"
-            android:text="Back to Login"
+            android:text="@string/back_to_login"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

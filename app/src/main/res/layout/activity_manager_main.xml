@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hello"
-                android:textColor="@color/white"
+                android:textColor="#EAEAEA"
                 android:textSize="36sp"
                 android:textStyle="bold" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Manager Name"
-                android:textColor="@color/white"
+                android:textColor="#EAEAEA"
                 android:textSize="44sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -62,6 +62,7 @@
         android:background="@drawable/background_grey"
         android:orientation="horizontal"
         android:padding="4dp"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout19"
         app:layout_constraintStart_toStartOf="@+id/linearLayout19"
@@ -70,23 +71,24 @@
         <ImageView
             android:id="@+id/imageView18"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_margin="8dp"
-            android:layout_weight="0.7"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logo1" />
+            android:minHeight="120dp"
+            android:layout_height="130dp"
+            android:layout_margin="6dp"
+            android:layout_weight="0.8"
+            android:scaleType="centerCrop"
+            android:src="@drawable/barbershop5" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
             android:orientation="vertical"
-            android:padding="6dp">
+            android:padding="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.6"
+                android:layout_weight="0.7"
                 android:orientation="horizontal">
 
                 <TextView
@@ -95,6 +97,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.8"
                     android:gravity="center"
+                    android:background="@drawable/button_white"
                     android:text="No Upcoming Appointment"
                     android:textAlignment="center"
                     android:textColor="@color/black"
@@ -107,9 +110,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="2dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.3"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -394,7 +397,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="TextView"
-        android:textColor="#C5A856"
+        android:textColor="#004936"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout20"

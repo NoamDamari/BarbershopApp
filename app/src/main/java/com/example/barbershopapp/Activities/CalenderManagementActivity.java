@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.barbershopapp.R;
 
-public class ContactActivity extends AppCompatActivity {
+public class CalenderManagementActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact);
+        setContentView(R.layout.activity_calender_management);
     }
 }

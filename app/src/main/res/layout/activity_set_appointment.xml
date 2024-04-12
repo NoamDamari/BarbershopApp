@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:padding="10dp"
-            android:text="Set Appointment"
-            android:textColor="#ECECEC"
+            android:text="@string/set_appointment"
+            android:textColor="#EAEAEA"
             android:textSize="40sp"
             android:textStyle="bold" />
     </LinearLayout>

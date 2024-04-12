@@ -11,16 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.barbershopapp.Activities.AppointmentsListActivity;
 import com.example.barbershopapp.Adapters.AppointmentsAdapter;
-import com.example.barbershopapp.Adapters.ClientsAdapter;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 
 public class ScheduleFragment extends Fragment {
 
