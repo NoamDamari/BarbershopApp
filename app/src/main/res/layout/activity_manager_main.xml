@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_weight="1"
@@ -32,7 +32,7 @@
                 android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello"
+                android:text="@string/hello"
                 android:textColor="#EAEAEA"
                 android:textSize="36sp"
                 android:textStyle="bold" />
@@ -41,7 +41,7 @@
                 android:id="@+id/mUsernameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Manager Name"
+                android:text="@string/manager_name"
                 android:textColor="#EAEAEA"
                 android:textSize="44sp"
                 android:textStyle="bold" />
@@ -52,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
+            android:contentDescription="@string/signout_icon"
             android:src="@drawable/icon_logout_grey" />
     </LinearLayout>
 
@@ -59,24 +60,29 @@
         android:id="@+id/linearLayout20"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_grey"
+        android:background="@drawable/grey_bg3"
+        android:gravity="center"
+        android:minHeight="170dp"
         android:orientation="horizontal"
         android:padding="4dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintBottom_toTopOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout19"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/linearLayout19"
-        app:layout_constraintTop_toBottomOf="@+id/textView13">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout17"
+        app:layout_constraintVertical_chainStyle="spread">
 
         <ImageView
             android:id="@+id/imageView18"
             android:layout_width="match_parent"
-            android:minHeight="120dp"
             android:layout_height="130dp"
             android:layout_margin="6dp"
             android:layout_weight="0.8"
+            android:contentDescription="@string/calendar_icon"
+            android:minHeight="120dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/barbershop5" />
+            android:src="@drawable/barbershop5"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,15 +99,14 @@
 
                 <TextView
                     android:id="@+id/mCardHeadlineTV"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.8"
                     android:gravity="center"
-                    android:background="@drawable/button_white"
-                    android:text="No Upcoming Appointment"
+                    android:text="@string/no_upcoming_appointment"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="26sp"
+                    android:textColor="#151515"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -112,57 +117,38 @@
                 android:layout_marginTop="2dp"
                 android:layout_weight="0.3"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/mNextDateTV"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Date"
+                        android:text="@string/date"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textColor="#151515"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/mNextTimeTV"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Time"
+                        android:text="@string/time"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textColor="#151515"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/mNextServiceTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Service type"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -174,17 +160,29 @@
                     <TextView
                         android:id="@+id/mNextClientNameTV"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Client name"
+                        android:gravity="center"
+                        android:text="@string/client_name"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textColor="#151515"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/mNextServiceTV"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/service_type"
+                        android:textAlignment="center"
+                        android:textColor="#151515"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 
@@ -192,7 +190,7 @@
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="18dp"
+        android:layout_margin="12dp"
         android:background="@drawable/background_dark2"
         android:minHeight="300dp"
         android:orientation="vertical"
@@ -219,13 +217,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/imageView19"
                         android:layout_width="90dp"
                         android:layout_height="75dp"
+                        android:contentDescription="@string/calendar_icon"
                         app:layout_constraintBottom_toTopOf="@+id/textView24"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -238,7 +236,7 @@
                         android:id="@+id/textView24"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Calender"
+                        android:text="@string/calendar"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -267,6 +265,7 @@
                         android:id="@+id/imageView20"
                         android:layout_width="90dp"
                         android:layout_height="75dp"
+                        android:contentDescription="@string/scissors_icon"
                         app:layout_constraintBottom_toTopOf="@+id/textView26"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -278,7 +277,7 @@
                         android:id="@+id/textView26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Services"
+                        android:text="@string/services"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -312,6 +311,7 @@
                         android:id="@+id/imageView21"
                         android:layout_width="90dp"
                         android:layout_height="75dp"
+                        android:contentDescription="@string/list_icon"
                         app:layout_constraintBottom_toTopOf="@+id/textView28"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -323,7 +323,7 @@
                         android:id="@+id/textView28"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Schedule"
+                        android:text="@string/schedule"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -351,6 +351,7 @@
                         android:id="@+id/imageView22"
                         android:layout_width="90dp"
                         android:layout_height="75dp"
+                        android:contentDescription="@string/users_icon"
                         app:layout_constraintBottom_toTopOf="@+id/textView27"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -362,7 +363,7 @@
                         android:id="@+id/textView27"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Clients"
+                        android:text="@string/clients"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -392,18 +393,17 @@
         app:layout_constraintGuide_percent="0.500684" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="TextView"
-        android:textColor="#004936"
-        android:textSize="28sp"
+        android:text="@string/manage_your_activities_with_ease"
+        android:textAlignment="center"
+        android:textColor="#151515"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout20"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

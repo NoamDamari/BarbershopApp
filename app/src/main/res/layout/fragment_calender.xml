@@ -79,7 +79,7 @@
             android:id="@+id/linearLayout13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_grey"
+            android:background="@drawable/grey_bg3"
             android:orientation="horizontal"
             android:padding="6dp">
 

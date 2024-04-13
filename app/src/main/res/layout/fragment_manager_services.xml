@@ -10,12 +10,15 @@
         android:id="@+id/managerServicesRV"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
         app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
@@ -28,29 +31,15 @@
         android:id="@+id/addServiceBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:text="Add"
-        android:textColor="#EFEFEF"
-        android:textSize="20sp"
-        android:padding="8dp"
         android:background="@drawable/button_black"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:text="@string/add_new_service"
+        android:textColor="#EFEFEF"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteServiceBtn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
-    <Button
-        android:id="@+id/deleteServiceBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minHeight="48dp"
-        android:text="Remove"
-        android:textColor="#EFEFEF"
-        android:textSize="20sp"
-        android:padding="8dp"
-        android:background="@drawable/button_black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addServiceBtn"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
 </androidx.constraintlayout.widget.ConstraintLayout>

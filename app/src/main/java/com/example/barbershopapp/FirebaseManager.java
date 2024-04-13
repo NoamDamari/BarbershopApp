@@ -39,8 +39,8 @@ import java.util.Objects;
 
 public class FirebaseManager {
     private static FirebaseManager instance;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private final FirebaseAuth mAuth;
+    private final DatabaseReference mDatabase;
 
     public FirebaseManager() {
         mAuth = FirebaseAuth.getInstance();
@@ -144,7 +144,6 @@ public class FirebaseManager {
 
     public interface ManagerCredentialsListener {
         void onManagerCredentialsMatch();
-
         void onManagerCredentialsMismatch(String errorMessage);
     }
 
@@ -207,80 +206,7 @@ public class FirebaseManager {
         void onUserDetailsFetched(Client client);
     }
 
-    // Fetch available appointment hours at the barbershop
-    /*public void fetchAvailableHours(String date , ArrayList<String> availableHours, Context context , onAvailableHoursFetchedListener listener) {
-        DatabaseReference unavailableTimesRef = mDatabase.child("Unavailable dates");
-        mDatabase.child("Appointments").child(date).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean isExist = snapshot.exists();
-                // If the date exists in the database, there are appointments scheduled for that date
-                if(isExist) {
-                    for(int hour = 10; hour <= 21; hour++)
-                    {
-                        // If the hour node exists in the database, there is an appointment scheduled for that hour
-                        if(!snapshot.hasChild(String.valueOf(hour) + ":00"))
-                        {
-                            String finalHour = String.valueOf(hour) + ":00";
-                            isUnavailableTime(unavailableTimesRef , date , finalHour , new OnIsUnavailableListener() {
-                                @Override
-                                public void onIsUnavailable(boolean isUnavailable) {
-                                    if (!isUnavailable) {
-                                        // Add only available hours
-                                        availableHours.add(finalHour);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-                else
-                {
-                    // Add all hours as available to hours list (all hours available)
-                    for (int hour = 10; hour <= 21; hour++){
-                        availableHours.add(String.valueOf(hour) + ":00");
-                    }
-                }
-                listener.onAvailableHoursFetched(availableHours);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                listener.onAvailableHoursFetched(null);
-                Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private interface OnIsUnavailableListener {
-        void onIsUnavailable(boolean isUnavailable);
-    }
-
-    private void isUnavailableTime(DatabaseReference unavailableTimesRef, String date, String time ,  OnIsUnavailableListener onIsUnavailableListener) {
-        unavailableTimesRef.child(date).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean isUnavailable = false; // Assume initially the day is available
-                if (!snapshot.hasChild(time)) {
-                    onIsUnavailableListener.onIsUnavailable(isUnavailable);
-                }
-                else {
-                    isUnavailable = true;
-                    onIsUnavailableListener.onIsUnavailable(isUnavailable);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle onCancelled if needed
-                onIsUnavailableListener.onIsUnavailable(false); // Assume availability in case of cancellation
-            }
-        });
-    }*/
-
-
-    public interface onAvailableHoursFetchedListener {
-        void onAvailableHoursFetched(ArrayList<String> availableHours);
-    }
-
+    // Fetching available hours for appointments booking
     public void fetchAvailableHours(String date, ArrayList<String> availableHours, Context context, onAvailableHoursFetchedListener listener) {
         DatabaseReference appointmentsRef = mDatabase.child("Appointments").child(date);
         DatabaseReference unavailableTimesRef = mDatabase.child("Unavailable dates").child(date);
@@ -318,7 +244,6 @@ public class FirebaseManager {
                         // Notify listener with available hours
                         listener.onAvailableHoursFetched(availableHours);
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         listener.onAvailableHoursFetched(null);
@@ -326,7 +251,6 @@ public class FirebaseManager {
                     }
                 });
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 listener.onAvailableHoursFetched(null);
@@ -335,9 +259,12 @@ public class FirebaseManager {
         });
     }
 
+    public interface onAvailableHoursFetchedListener {
+        void onAvailableHoursFetched(ArrayList<String> availableHours);
+    }
+
     // Set an Appointment at the barbershop
     public void setAppointment(Appointment appointment, Context context) {
-
         String uid = appointment.getClient().getUid();
 
         // Set appointment on client record
@@ -351,6 +278,7 @@ public class FirebaseManager {
         Toast.makeText(context, "Appointment Set SUCCESS", Toast.LENGTH_SHORT).show();
     }
 
+    // Fetch client closest appointment
     public void fetchClosestAppointmentForClient(onClosestAppointmentDetailsFetchedListener listener) {
         String uid = mAuth.getUid();
         DatabaseReference ref = mDatabase.child("Clients").child(uid).child("Appointments");
@@ -374,7 +302,6 @@ public class FirebaseManager {
                 }
                 listener.onClosestAppointmentDetailsFetched(null);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("Closest Appointment error", "Closest Appointment error");
@@ -407,7 +334,6 @@ public class FirebaseManager {
 
     // Fetching Upcoming appointments for clients and managers
     public void fetchAppointments(Context context, ArrayList<Appointment> appointments, boolean isManager, onAppointmentsFetchedListener listener) {
-
         // If the function called by a client, it will retrieve only their appointments from the database.
         if (!isManager) {
             String uid = mAuth.getUid();
@@ -431,7 +357,6 @@ public class FirebaseManager {
                     }
                     listener.onAppointmentsFetched(appointments);
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
@@ -472,6 +397,7 @@ public class FirebaseManager {
         void onAppointmentsFetched(ArrayList<Appointment> appointments);
     }
 
+    // Cancel appointment
     public void cancelAppointment(Appointment appointment) {
         DatabaseReference appointmentsRef = mDatabase.child("Appointments");
 
@@ -544,8 +470,6 @@ public class FirebaseManager {
         context.startActivity(intent);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
     // Fetch manager details from database
     public void fetchManagerDetails(String managerId, onManagerDetailsFetchedListener listener) {
 
@@ -578,7 +502,6 @@ public class FirebaseManager {
 
     // Fetch the next appointment at the barbershop
     public void fetchNextAppointment(onNextAppointmentFetchedListener listener) {
-
         mDatabase.child("Appointments").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -615,6 +538,7 @@ public class FirebaseManager {
         void onNextAppointmentsFetched(Appointment appointment);
     }
 
+    // Fetch Clients list
     public void fetchClientsList(Context context, ArrayList<Client> clientArrayList, onClientsListFetchedListener listener) {
 
         mDatabase.child("Clients").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -639,6 +563,7 @@ public class FirebaseManager {
         void onClientsListFetched(ArrayList<Client> clientArrayList);
     }
 
+    // Delete client account from the app
     public void deleteClientAccount(Client clientToDelete) {
         String uid = clientToDelete.getUid();
         mDatabase.child("Clients").child(uid).removeValue(new DatabaseReference.CompletionListener() {
@@ -649,6 +574,7 @@ public class FirebaseManager {
         });
     }
 
+    // Delete all clients appointments when account is deleted
     private void deleteAllClientAppointments(Client clientToDelete) {
         mDatabase.child("Appointments").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -676,7 +602,7 @@ public class FirebaseManager {
     }
 
     // Add new service to database
-    public void addService(Context context, String serviceName, String servicePrice) {
+    public void addService(Context context, String serviceName, String servicePrice , onServiceAddedListener listener) {
 
         DatabaseReference servicesRef = mDatabase.child("Services").child(serviceName);
         servicesRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -684,6 +610,8 @@ public class FirebaseManager {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
                     servicesRef.setValue(servicePrice);
+                    Service service = new Service(serviceName , servicePrice);
+                    listener.onServiceAdded(service);
                 } else {
                     Toast.makeText(context, "Service is already exist", Toast.LENGTH_SHORT).show();
                 }
@@ -694,6 +622,10 @@ public class FirebaseManager {
                 return;
             }
         });
+    }
+
+    public interface onServiceAddedListener {
+        void onServiceAdded(Service service);
     }
 
     // Delete Service from database
@@ -710,7 +642,6 @@ public class FirebaseManager {
                     Toast.makeText(context, "Service not found", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 return;
@@ -718,44 +649,8 @@ public class FirebaseManager {
         });
     }
 
-
-    //////////////////////////////////////////////////////////////////////////////////
-
-    // Set full dates as block for booking
-    public void setUnavailableDates(Context context, String managerId, String startDate, String endDate) {
-
-        DatabaseReference appointmentRef = mDatabase.child("Appointments");
-        DatabaseReference unavailableDatesRef = mDatabase.child("Unavailable dates");
-
-        // Delete existing appointments within the given date range.
-        appointmentRef.orderByKey().startAt(startDate).endAt(endDate)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dateSnapshot : snapshot.getChildren()) {
-
-                            for (DataSnapshot timeSnapshot : dateSnapshot.getChildren()) {
-
-                                Appointment appointment = new Appointment();
-                                appointment = timeSnapshot.getValue(Appointment.class);
-                                assert appointment != null;
-                                cancelAppointment(appointment);
-                            }
-
-                            String date = dateSnapshot.getKey();
-                            unavailableDatesRef.child(date).child("Blocked by").setValue(managerId);
-                        }
-                        Toast.makeText(context, "Blocking dates Succeeded", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(context, "Blocking dates failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    public void setTimeUnavailable(Context context, String managerId, String startDate, String endDate, String startTime, String endTime) {
+    // Block time range for booking
+    public void BlockTimeRange(Context context, String managerId, String startDate, String endDate, String startTime, String endTime) {
         DatabaseReference unavailableTimesRef = mDatabase.child("Unavailable dates");
         DatabaseReference appointmentsRef = mDatabase.child("Appointments");
         ArrayList<String> datesRange = getDateRange(startDate, endDate);
@@ -775,7 +670,7 @@ public class FirebaseManager {
                             Appointment appointment = new Appointment();
                             appointment = snapshot.getValue(Appointment.class);
                             assert appointment != null;
-                            cancelAppointment(appointment); // Remove existing appointment
+                            cancelAppointment(appointment);
                         }
                     }
                     @Override
@@ -789,7 +684,7 @@ public class FirebaseManager {
         Toast.makeText(context, "Time Blocked Successfully", Toast.LENGTH_SHORT).show();
     }
 
-
+    // get the suitable time range for user input
     private ArrayList<String> getSuitableTimeRange(String startDate,  String currentDate , String endDate, String startTime, String endTime) {
 
         ArrayList<String> timeRange = new ArrayList<>();
@@ -847,8 +742,7 @@ public class FirebaseManager {
         return timeList;
     }
 
-
-    // Fetch blocked times
+    // Fetch all blocked (unavailable) times for booking
     public void fetchBlockedTimes(Context context, String startDate , String endDate , ArrayList<BlockedTime> blockedTimesList , onBlockedTimesFetchedListener listener) {
 
         ArrayList<String> datesRange = getDateRange(startDate , endDate);
@@ -871,7 +765,6 @@ public class FirebaseManager {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
                     Toast.makeText(context, "Data access failed", Toast.LENGTH_SHORT).show();
                 }
             });

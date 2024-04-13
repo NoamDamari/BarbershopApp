@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".Fragments.BookingFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/appointment_ndetails"
-            android:textColor="#E8E8E8"
+            android:textColor="#E1E1E1"
             android:textSize="44sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +34,7 @@
             android:id="@+id/linearLayout10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/green_frame"
+            android:background="@drawable/button_white"
             android:orientation="vertical"
             android:padding="8dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout22"
@@ -60,7 +59,7 @@
                     android:contentDescription="@string/calendar_icon"
                     android:minHeight="32dp"
                     android:src="@drawable/icon_calendar"
-                    app:tint="#F8F8F8" />
+                    app:tint="#121212" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -68,8 +67,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.85"
                     android:text="@string/date"
-                    android:textColor="#F8F8F8"
-                    android:textSize="28sp" />
+                    android:textColor="#121212"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -89,7 +89,7 @@
                     android:contentDescription="@string/clock_icon"
                     android:minHeight="32dp"
                     android:src="@drawable/icon_clock"
-                    app:tint="#F8F8F8" />
+                    app:tint="#121212" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -97,8 +97,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
                     android:text="@string/time"
-                    android:textColor="#F8F8F8"
-                    android:textSize="28sp" />
+                    android:textColor="#121212"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -118,7 +119,7 @@
                     android:contentDescription="@string/scissors_icon"
                     android:minHeight="32dp"
                     android:src="@drawable/icon_scissors"
-                    app:tint="#F8F8F8" />
+                    app:tint="#121212" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -126,8 +127,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.83"
                     android:text="@string/service"
-                    android:textColor="#F8F8F8"
-                    android:textSize="28sp" />
+                    android:textColor="#121212"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
 
@@ -144,7 +146,7 @@
                 android:id="@+id/setAppointmentBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_white"
+                android:background="@drawable/button_silver2"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 android:minHeight="48dp"
@@ -158,7 +160,7 @@
                 android:id="@+id/backToMainFromBookingBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_white"
+                android:background="@drawable/button_silver2"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 android:minHeight="48dp"

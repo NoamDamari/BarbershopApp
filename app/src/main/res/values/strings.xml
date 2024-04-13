@@ -72,5 +72,24 @@
     <string name="block_time_range">Block time range</string>
     <string name="select_time_range_to_unblock">Select time range to unblock</string>
     <string name="or_unblock_specific_time">Or unblock specific time</string>
+    <string name="hello">Hello</string>
+    <string name="user_name">User Name</string>
+    <string name="signout_icon">signout icon</string>
+    <string name="barbershop_icon">barbershop icon</string>
+    <string name="no_upcoming_appointment">No Upcoming Appointment</string>
+    <string name="calendar">Calendar</string>
+    <string name="services">Services</string>
+    <string name="list_icon">list icon</string>
+    <string name="appointments">Appointments</string>
+    <string name="client_name">Client Name</string>
+    <string name="manager_name">Manager Name</string>
+    <string name="users_icon">users_icon</string>
+    <string name="schedule">Schedule</string>
+    <string name="clients">Clients</string>
+    <string name="add_new_service">Add new service</string>
+    <string name="remove">Remove</string>
+    <string name="name">Name</string>
+    <string name="manage_your_activities_with_ease">Manage Your Activities with Ease</string>
+    <string name="your_barber_shop_experience_enhanced">Your Barber Shop Experience - Enhanced</string>
 
 </resources>

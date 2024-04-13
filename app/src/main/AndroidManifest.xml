@@ -16,7 +16,7 @@
             android:name=".Activities.ClientActionsActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.CalenderManagementActivity"
+            android:name=".Activities.CalendarManagementActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.ManagementActivity"

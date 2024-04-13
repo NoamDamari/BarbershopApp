@@ -23,7 +23,6 @@ public class ManagerServicesFragment extends Fragment {
 
     RecyclerView servicesRV;
     Button addServiceBtn;
-    Button deleteServiceBtn;
     ServicesAdapter adapter;
 
     public ManagerServicesFragment() {
@@ -42,7 +41,6 @@ public class ManagerServicesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_manager_services, container, false);
 
         addServiceBtn = view.findViewById(R.id.addServiceBtn);
-        deleteServiceBtn = view.findViewById(R.id.deleteServiceBtn);
         servicesRV = view.findViewById(R.id.managerServicesRV);
         servicesRV.setItemAnimator(new DefaultItemAnimator());
         ArrayList<Service> servicesList = new ArrayList<>();
@@ -59,13 +57,6 @@ public class ManagerServicesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showAddServiceDialog();
-            }
-        });
-
-        deleteServiceBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDeleteServiceDialog();
             }
         });
         return view;
@@ -98,13 +89,18 @@ public class ManagerServicesFragment extends Fragment {
         layout.addView(servicePriceInput);
         builder.setView(layout);
 
-        // Set up the buttons
+        // Dialog buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String serviceName = serviceNameInput.getText().toString().trim();
                 String servicePrice = servicePriceInput.getText().toString().trim();
-                FirebaseManager.getInstance().addService(getContext() ,serviceName, servicePrice);
+                FirebaseManager.getInstance().addService(getContext(), serviceName, servicePrice, new FirebaseManager.onServiceAddedListener() {
+                    @Override
+                    public void onServiceAdded(Service service) {
+                        adapter.addService(service);
+                    }
+                });
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -117,42 +113,4 @@ public class ManagerServicesFragment extends Fragment {
         builder.show();
     }
 
-    private void showDeleteServiceDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Delete Service");
-
-        // Set up the input
-        EditText serviceNameInput = new EditText(getContext());
-        serviceNameInput.setHint("Service Name");
-
-        // Set the input view
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        layoutParams.setMargins(48, 0, 48, 0);
-        serviceNameInput.setLayoutParams(layoutParams);
-
-        LinearLayout layout = new LinearLayout(getContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(serviceNameInput);
-        builder.setView(layout);
-
-        // Set up the buttons
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String serviceName = serviceNameInput.getText().toString().trim();
-                FirebaseManager.getInstance().deleteService(getContext() , serviceName);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        // Show the dialog
-        builder.show();
-    }
 }

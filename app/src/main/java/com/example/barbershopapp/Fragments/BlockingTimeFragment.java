@@ -98,14 +98,7 @@ public class BlockingTimeFragment extends DialogFragment implements DatePickerDi
                 String startTime = startTimeBtn.getText().toString();
                 String endTime = endTimeBtn.getText().toString();
 
-                FirebaseManager.getInstance().setTimeUnavailable(getContext() , managerId , startDate , endDate,  startTime , endTime);
-                /*if (startTime.equals("10:00") && endTime.equals("21:00"))
-                {
-                    FirebaseManager.getInstance().setUnavailableDates(getContext(), managerId , startDate , endDate);
-                }
-                else {
-                    FirebaseManager.getInstance().setTimesUnavailable(getContext() , managerId , startDate , endDate,  startTime , endTime);
-                }*/
+                FirebaseManager.getInstance().BlockTimeRange(getContext() , managerId , startDate , endDate,  startTime , endTime);
             }
         });
 
@@ -115,7 +108,6 @@ public class BlockingTimeFragment extends DialogFragment implements DatePickerDi
     private void setCurrentDateTime() {
         // Get current date and time
         Calendar calendar = Calendar.getInstance();
-        //Date currentDate = calendar.getTime();
 
         // Check if minutes are already 00, if not, round up to the next hour
         int minutes = calendar.get(Calendar.MINUTE);
@@ -126,7 +118,7 @@ public class BlockingTimeFragment extends DialogFragment implements DatePickerDi
 
         Date currentDate = calendar.getTime();
 
-            // Format date and time
+        // Format date and time
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.barbershopapp.R;
 
-public class CalenderManagementActivity extends AppCompatActivity {
+public class CalendarManagementActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

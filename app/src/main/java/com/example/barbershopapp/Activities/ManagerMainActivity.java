@@ -12,10 +12,8 @@ import android.widget.TextView;
 
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Fragments.ClientsFragment;
-import com.example.barbershopapp.Fragments.ManagerCalendarFragment;
 import com.example.barbershopapp.Fragments.ManagerServicesFragment;
 import com.example.barbershopapp.Fragments.ScheduleFragment;
-import com.example.barbershopapp.Fragments.UnblockingTimeFragment;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Manager;
 import com.example.barbershopapp.R;
@@ -103,7 +101,7 @@ public class ManagerMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent2 = new Intent(ManagerMainActivity.this, CalenderManagementActivity.class);
+                Intent intent2 = new Intent(ManagerMainActivity.this, CalendarManagementActivity.class);
                 intent2.putExtra("username" , currentManager.getUsername());
                 intent2.putExtra("email" , currentManager.getEmail());
                 intent2.putExtra("password" , currentManager.getPassword());

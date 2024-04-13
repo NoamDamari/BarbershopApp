@@ -38,7 +38,7 @@ public class ClientActionsActivity extends AppCompatActivity {
                     headline.setText(R.string.our_services);
                     break;
                 case "com.example.barbershopapp.Fragments.AppointmentsListFragment":
-                    headline.setTextSize(34);
+                    headline.setTextSize(32);
                     headline.setText(R.string.upcoming_appointments);
                     break;
                 default:

@@ -32,7 +32,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello"
+                android:text="@string/hello"
                 android:textColor="#EAEAEA"
                 android:textSize="36sp"
                 android:textStyle="bold" />
@@ -41,7 +41,7 @@
                 android:id="@+id/usernameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
+                android:text="@string/user_name"
                 android:textColor="#EAEAEA"
                 android:textSize="44sp"
                 android:textStyle="bold" />
@@ -52,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:src="@drawable/icon_logout_grey" />
+            android:src="@drawable/icon_logout_grey"
+            android:contentDescription="@string/signout_icon" />
 
 
     </LinearLayout>
@@ -61,14 +62,13 @@
         android:id="@+id/linearLayout9"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/sample_bg"
-        android:minHeight="160dp"
+        android:background="@drawable/grey_bg3"
+        android:gravity="center"
+        android:minHeight="170dp"
         android:orientation="horizontal"
         android:padding="6dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/linearLayout4"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
@@ -78,9 +78,11 @@
             android:layout_height="140dp"
             android:layout_margin="4dp"
             android:layout_weight="0.9"
+            android:contentDescription="@string/barbershop_icon"
             android:minHeight="130dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/barbershop5" />
+            android:src="@drawable/barbershop5"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,7 +95,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="4dp"
-
                 android:layout_weight="0.6"
                 android:orientation="horizontal">
 
@@ -102,11 +103,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="No Upcoming Appointment"
+                    android:text="@string/no_upcoming_appointment"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="26sp"
+                    android:textSize="28sp"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -116,7 +118,7 @@
                 android:layout_marginTop="2dp"
                 android:layout_weight="0.3"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,7 +132,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Date"
+                        android:text="@string/date"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="22sp"
@@ -142,7 +144,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Time"
+                        android:text="@string/time"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="22sp"
@@ -152,17 +154,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginVertical="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/nextServiceTV"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Service type"
+                        android:text="@string/service_type"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="22sp"
@@ -177,7 +179,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="18dp"
+        android:layout_margin="12dp"
         android:background="@drawable/background_dark2"
         android:minHeight="300dp"
         android:orientation="vertical"
@@ -216,13 +218,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/icon_calendar" />
+                        app:srcCompat="@drawable/icon_calendar"
+                        android:contentDescription="@string/calendar_icon" />
 
                     <TextView
                         android:id="@+id/textView16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Calender"
+                        android:text="@string/calendar"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -256,13 +259,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/icon_scissors" />
+                        app:srcCompat="@drawable/icon_scissors"
+                        android:contentDescription="@string/scissors_icon" />
 
                     <TextView
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Services"
+                        android:text="@string/services"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -301,13 +305,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/icon_list" />
+                        app:srcCompat="@drawable/icon_list"
+                        android:contentDescription="@string/list_icon" />
 
                     <TextView
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Appointments"
+                        android:text="@string/appointments"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -340,13 +345,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_chainStyle="packed"
-                        app:srcCompat="@drawable/icon_phone" />
+                        app:srcCompat="@drawable/icon_phone"
+                        android:contentDescription="@string/phone_icon" />
 
                     <TextView
                         android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Contact"
+                        android:text="@string/contact"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -374,5 +380,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.500684" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manage_your_activities_with_ease"
+        android:textAlignment="center"
+        android:textColor="#151515"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
