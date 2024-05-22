@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.barbershopapp.FirebaseManager;
+import com.example.barbershopapp.FireBaseUtils.Registration;
 import com.example.barbershopapp.Models.Client;
 import com.example.barbershopapp.R;
 
@@ -59,7 +59,7 @@ public class RegisterFragment extends Fragment {
             else {
                 // Register the client and store details in the database
                 Client client = new Client(username , email , password , phone);
-                FirebaseManager.getInstance().register(client , getContext());
+                Registration.getInstance().register(client , getContext());
             }
         });
 

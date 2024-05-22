@@ -54,31 +54,6 @@ public class FirebaseManager {
         return instance;
     }
 
-    // Register the client and call to saveClientDetailsOnDatabase function
-    public void register(Client client, Context context) {
-
-        String email = client.getEmail();
-        String password = client.getPassword();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(context, "Successful Registration", Toast.LENGTH_SHORT).show();
-                            Client clientWithUid = new Client(client.getUsername(), client.getEmail(), client.getPassword(), client.getPhone(), mAuth.getUid());
-                            FirebaseManager.getInstance().saveClientDetailsOnDatabase(clientWithUid);
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(context, "Registration Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-    }
 
     // Store client details on database
     public void saveClientDetailsOnDatabase(Client client) {
@@ -87,196 +62,6 @@ public class FirebaseManager {
         clientsRef.setValue(client);
     }
 
-    // Client login function
-    public void login(String email, String password, Context context) {
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(context, "Successful login", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-    }
-
-    // Manager login function and call to checkManagerCredentials
-    public void managerLogin(@NonNull String email, String password, String managerId, Context context) {
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Validate manager id
-                            FirebaseManager.getInstance().validateManagerCredentials(email, password, managerId, new ManagerCredentialsListener() {
-                                @Override
-                                public void onManagerCredentialsMatch() {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(context, "Login Succeeded", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(context, ManagerMainActivity.class);
-                                    intent.putExtra("manager id", managerId);
-                                    context.startActivity(intent);
-                                }
-
-                                @Override
-                                public void onManagerCredentialsMismatch(String errorMessage) {
-                                    // If manager credentials don't match, show error message
-                                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(context, "Login Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-    }
-
-    public interface ManagerCredentialsListener {
-        void onManagerCredentialsMatch();
-        void onManagerCredentialsMismatch(String errorMessage);
-    }
-
-    // Validate that the manager ID exists and matches the provided user email and password.
-    public void validateManagerCredentials(String email, String password, String managerId, ManagerCredentialsListener listener) {
-        mDatabase.child("Managers").child(managerId)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            String managerEmail = snapshot.child("email").getValue(String.class);
-                            String managerPassword = snapshot.child("password").getValue(String.class);
-
-                            assert managerEmail != null;
-                            assert managerPassword != null;
-                            if (managerEmail.equals(email) && managerPassword.equals(password)) {
-                                // Manager email and password match the provided credentials
-                                listener.onManagerCredentialsMatch();
-                            } else {
-                                // Manager email or password do not match the provided credentials
-                                listener.onManagerCredentialsMismatch("Manager credentials do not match");
-                            }
-                        } else {
-                            // Manager ID does not exist in the Managers node
-                            listener.onManagerCredentialsMismatch("Invalid manager ID");
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        // Handle database error
-                        listener.onManagerCredentialsMismatch("Database Error");
-                    }
-                });
-    }
-
-    // Fetching data of the currently logged-in user(client)
-    public void fetchCurrentUserDetails(onUserDetailsFetchedListener listener) {
-
-        String uid = mAuth.getUid();
-        mDatabase.child("Clients").child(uid)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            Client client = snapshot.getValue(Client.class);
-                            listener.onUserDetailsFetched(client);
-                        } else {
-                            listener.onUserDetailsFetched(null);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        listener.onUserDetailsFetched(null);
-                    }
-                });
-    }
-
-    public interface onUserDetailsFetchedListener {
-        void onUserDetailsFetched(Client client);
-    }
-
-    // Fetching available hours for appointments booking
-    public void fetchAvailableHours(String date, ArrayList<String> availableHours, Context context, onAvailableHoursFetchedListener listener) {
-        DatabaseReference appointmentsRef = mDatabase.child("Appointments").child(date);
-        DatabaseReference unavailableTimesRef = mDatabase.child("Unavailable dates").child(date);
-        appointmentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot appointmentSnapshot) {
-                boolean appointmentsExist = appointmentSnapshot.exists();
-
-                unavailableTimesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot unavailableSnapshot) {
-                        // Check if there are appointments for the given date
-                        if (!appointmentsExist) {
-                            if (unavailableSnapshot.hasChild("Blocked by")) {
-                                // If all day is blocked
-                                listener.onAvailableHoursFetched(availableHours);
-                            } else {
-                                // If there are no appointments, check unavailable times
-                                for (int hour = 10; hour <= 21; hour++) {
-                                    String hourString = String.valueOf(hour) + ":00";
-                                    if (!unavailableSnapshot.hasChild(hourString)) {
-                                        availableHours.add(hourString);
-                                    }
-                                }
-                            }
-                        } else {
-                            // If there are appointments, check unavailable times for each hour
-                            for (int hour = 10; hour <= 21; hour++) {
-                                String hourString = String.valueOf(hour) + ":00";
-                                if (!appointmentSnapshot.hasChild(hourString) && !unavailableSnapshot.hasChild(hourString)) {
-                                    availableHours.add(hourString);
-                                }
-                            }
-                        }
-                        // Notify listener with available hours
-                        listener.onAvailableHoursFetched(availableHours);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        listener.onAvailableHoursFetched(null);
-                        Toast.makeText(context, "Database access failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                listener.onAvailableHoursFetched(null);
-                Toast.makeText(context, "Database access failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    public interface onAvailableHoursFetchedListener {
-        void onAvailableHoursFetched(ArrayList<String> availableHours);
-    }
-
-    // Set an Appointment at the barbershop
-    public void setAppointment(Appointment appointment, Context context) {
-        String uid = appointment.getClient().getUid();
-
-        // Set appointment on client record
-        mDatabase.child("Clients").child(uid).child("Appointments").
-                child(appointment.getDate()).child(appointment.getTime()).setValue(appointment);
-
-        // Set appointment on Appointments collection
-        mDatabase.child("Appointments").child(appointment.getDate()).child(appointment.getTime()).
-                setValue(appointment);
-
-        Toast.makeText(context, "Appointment Set SUCCESS", Toast.LENGTH_SHORT).show();
-    }
 
     // Fetch client closest appointment
     public void fetchClosestAppointmentForClient(onClosestAppointmentDetailsFetchedListener listener) {
@@ -450,15 +235,12 @@ public class FirebaseManager {
                 }
                 listener.onServicesFetched(servicesList);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(context, "Data base access failed", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
     public interface onServicesFetchedListener {
         void onServicesFetched(ArrayList<Service> services);
     }
@@ -488,7 +270,6 @@ public class FirebaseManager {
                             listener.onManagerDetailsFetched(null);
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         listener.onManagerDetailsFetched(null);
@@ -616,7 +397,6 @@ public class FirebaseManager {
                     Toast.makeText(context, "Service is already exist", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 return;
@@ -654,7 +434,6 @@ public class FirebaseManager {
         DatabaseReference unavailableTimesRef = mDatabase.child("Unavailable dates");
         DatabaseReference appointmentsRef = mDatabase.child("Appointments");
         ArrayList<String> datesRange = getDateRange(startDate, endDate);
-        //ArrayList<String> timesRange = getTimeRange(startTime, endTime);
         ArrayList<String> timesRange = new ArrayList<>();
 
         for (String date : datesRange) {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.barbershopapp.Activities.MainActivity;
+import com.example.barbershopapp.FireBaseUtils.AppointmentsSetter;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
@@ -67,7 +68,7 @@ public class BookingFragment extends Fragment {
                     boolean isFuture = FirebaseManager.getInstance().isFutureTime(date + " " + hour);
                     if(isFuture) {
                         Appointment appointment = new Appointment(date , hour , service , client);
-                        FirebaseManager.getInstance().setAppointment(appointment , getContext());
+                        AppointmentsSetter.getInstance().setAppointment(appointment , getContext());
                     }
                     else {
                         Toast.makeText(getContext() ,"Appointment Set FAILED", Toast.LENGTH_SHORT).show();

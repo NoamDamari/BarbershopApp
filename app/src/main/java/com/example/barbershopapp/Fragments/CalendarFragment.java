@@ -15,7 +15,7 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.barbershopapp.Adapters.HoursAdapter;
-import com.example.barbershopapp.FirebaseManager;
+import com.example.barbershopapp.FireBaseUtils.DataFetcher;
 import com.example.barbershopapp.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class CalendarFragment extends Fragment {
         textView.setText(getString(R.string.available_hours_for_today) + currentDate);
 
         // Display available times for current date
-        FirebaseManager.getInstance().fetchAvailableHours(currentDate, availableHours, getContext(), availableHours1 -> {
+        DataFetcher.getInstance().fetchAvailableHours(currentDate, availableHours, getContext(), availableHours1 -> {
 
             HoursAdapter adapter = new HoursAdapter(availableHours1);
             availableHoursRV.setAdapter(adapter);
@@ -79,7 +79,7 @@ public class CalendarFragment extends Fragment {
             //textView.setText("Available Hours on " + selectedDate);
 
             availableHours.clear();
-                FirebaseManager.getInstance().fetchAvailableHours(selectedDate, availableHours, getContext(), new FirebaseManager.onAvailableHoursFetchedListener() {
+                DataFetcher.getInstance().fetchAvailableHours(selectedDate, availableHours, getContext(), new DataFetcher.onAvailableHoursFetchedListener() {
                     @Override
                     public void onAvailableHoursFetched(ArrayList<String> availableHours) {
                         if (availableHours.isEmpty())

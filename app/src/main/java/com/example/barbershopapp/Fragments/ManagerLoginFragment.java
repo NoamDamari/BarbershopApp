@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.barbershopapp.FirebaseManager;
+import com.example.barbershopapp.FireBaseUtils.ManagerLogin;
 import com.example.barbershopapp.R;
 
 public class ManagerLoginFragment extends Fragment {
@@ -54,7 +54,7 @@ public class ManagerLoginFragment extends Fragment {
                 Toast.makeText(getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
             }
             else{
-                FirebaseManager.getInstance().managerLogin(email , password , managerId , getContext());
+                ManagerLogin.getInstance().managerLogin(email , password , managerId , getContext());
             }
         });
 

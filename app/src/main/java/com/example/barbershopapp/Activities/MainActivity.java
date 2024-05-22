@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.barbershopapp.FireBaseUtils.DataFetcher;
 import com.example.barbershopapp.FirebaseManager;
 import com.example.barbershopapp.Fragments.AppointmentsListFragment;
 import com.example.barbershopapp.Fragments.ClientServicesFragment;
-import com.example.barbershopapp.Fragments.ClientsFragment;
 import com.example.barbershopapp.Fragments.ContactFragment;
 import com.example.barbershopapp.Models.Appointment;
 import com.example.barbershopapp.Models.Client;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         nextServiceTV = findViewById(R.id.nextServiceTV);
         cardHeadlineTV = findViewById(R.id.cardHeadlineTV);
 
-        FirebaseManager.getInstance().fetchCurrentUserDetails(new FirebaseManager.onUserDetailsFetchedListener() {
+        DataFetcher.getInstance().fetchCurrentUserDetails(new DataFetcher.onUserDetailsFetchedListener() {
             @Override
             public void onUserDetailsFetched(Client client) {
                 currentClient = client;
